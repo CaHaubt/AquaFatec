@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: cor2,
+                    color: cor3,
                   ),
                 ),
                 SizedBox(height: 20),

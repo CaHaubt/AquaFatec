@@ -3,6 +3,8 @@ import 'package:aquafatec/cadastro.dart';
 import 'home.dart';
 import 'login.dart';
 import 'menuInicial.dart';
+import 'widge/colors.dart';
+import 'perfil.dart';
 
 void main() {
   runApp(AquaFatecApp());
@@ -16,7 +18,7 @@ class AquaFatecApp extends StatelessWidget {
 
       title: 'AquaFatec',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
       ),
       home: HomeScreen(),
       routes: {
@@ -24,8 +26,9 @@ class AquaFatecApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/cadastro': (context) => CadastroScreen(),
         '/menu': (context) => MenuScreen(),
-
+        '/perfil': (context) => ProfileScreen(), // Adicione esta linha
       },
     );
   }
 }
+

@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'widge/naviBar.dart';
+import 'widge/colors.dart';
 
-class MenuScreen extends StatelessWidget {
+class MenuScreen extends StatefulWidget {
+  @override
+  _MenuScreenState createState() => _MenuScreenState();
+}
+
+class _MenuScreenState extends State<MenuScreen> {
+  int _currentIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    Color cor1 = Color.fromRGBO(178, 0, 0, 1.0);
+    Color cor2 = Color.fromRGBO(39, 51, 54, 1.0);
+
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 0,
+        title: Text('Menu'),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -14,6 +30,7 @@ class MenuScreen extends StatelessWidget {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
+                color: MyColors.cor3,
               ),
             ),
             SizedBox(height: 16),
@@ -25,44 +42,89 @@ class MenuScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMenuButton(context, 'assets/ph.png', 'pH', () {
-                  // Ação quando o botão for clicado (PH)
-                }),
-                _buildMenuButton(
-                    context, 'assets/alimentador.png', 'Alimentador', () {
-                  // Ação quando o botão for clicado (alimentador)
-                }),
+                Padding(
+                  padding: const EdgeInsets.all(
+                      8.0), // Espaçamento vertical e horizontal
+                  child: _buildMenuButton(context, 'assets/ph.png', 'pH', () {
+                    // Ação quando o botão for clicado (PH)
+                  }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(
+                      8.0), // Espaçamento vertical e horizontal
+                  child: _buildMenuButton(
+                      context, 'assets/alimentador.png', 'Alimentador', () {
+                    // Ação quando o botão for clicado (alimentador)
+                  }),
+                ),
               ],
             ),
+            SizedBox(
+                height: 16), // Espaçamento vertical entre as linhas de botões
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMenuButton(context, 'assets/nivelAgua.png', 'Nível d´agua', () {
-                  // Ação quando o botão for clicado (nivelAgua)
-                }),
-                _buildMenuButton(context, 'assets/oxigenio.png', 'Oxigênio', () {
-                  // Ação quando o botão for clicado (oxigenio)
-                }),
+                Padding(
+                  padding: const EdgeInsets.all(
+                      8.0), // Espaçamento vertical e horizontal
+                  child: _buildMenuButton(
+                      context, 'assets/nivelAgua.png', 'Nível d´agua', () {
+                    // Ação quando o botão for clicado (nivelAgua)
+                  }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(
+                      8.0), // Espaçamento vertical e horizontal
+                  child: _buildMenuButton(
+                      context, 'assets/oxigenio.png', 'Oxigênio', () {
+                    // Ação quando o botão for clicado (oxigenio)
+                  }),
+                ),
               ],
             ),
+            SizedBox(
+                height: 16), // Espaçamento vertical entre as linhas de botões
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildMenuButton(context, 'assets/temperatura.png', 'Temperatura', () {
-                  // Ação quando o botão for clicado (temperatura)
-                }),
-                _buildMenuButton(context, 'assets/turbidez.png', 'Turbidez', () {
-                  // Ação quando o botão for clicado (turbidez)
-                }),
+                Padding(
+                  padding: const EdgeInsets.all(
+                      8.0), // Espaçamento vertical e horizontal
+                  child: _buildMenuButton(
+                      context, 'assets/temperatura.png', 'Temperatura', () {
+                    // Ação quando o botão for clicado (temperatura)
+                  }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(
+                      8.0), // Espaçamento vertical e horizontal
+                  child: _buildMenuButton(
+                      context, 'assets/turbidez.png', 'Turbidez', () {
+                    // Ação quando o botão for clicado (turbidez)
+                  }),
+                ),
               ],
             ),
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+
+          // Implemente a lógica de navegação aqui
+          // Pode usar um Navigator.push para navegar para diferentes telas
+          // com base no índice selecionado.
+        },
+      ),
     );
   }
 
-  Widget _buildMenuButton(BuildContext context, String imageAsset, String buttonText, VoidCallback onPressed) {
+  Widget _buildMenuButton(BuildContext context, String imageAsset,
+      String buttonText, VoidCallback onPressed) {
     return InkWell(
       onTap: onPressed,
       child: Column(
@@ -78,10 +140,4 @@ class MenuScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-void main() {
-  runApp(MaterialApp(
-    home: MenuScreen(),
-  ));
 }
