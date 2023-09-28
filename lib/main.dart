@@ -26,7 +26,8 @@ class AquaFatecApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/cadastro': (context) => CadastroScreen(),
         '/menu': (context) => MenuScreen(),
-        '/perfil': (context) => ProfileScreen(), // Adicione esta linha
+        '/perfil': (context) => ProfileScreen(),
+        //'/notificacao': context => NotificacaoScreen(),
       },
     );
   }
