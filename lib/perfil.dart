@@ -1,6 +1,7 @@
 import 'package:aquafatec/widge/colors.dart';
 import 'package:flutter/material.dart';
-import 'widge/naviBar.dart'; // Importe o seu widget de navegação personalizado aqui
+import 'widge/buttonNaviBar.dart';
+import 'widge/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -8,6 +9,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  int _currentIndex = 3;
   bool notificationsEnabled = true; // Variável para controlar o estado do toggle
 
   @override
@@ -15,7 +17,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: MyColors.white,
       appBar: AppBar(
-        title: Text('Perfil'),
+        title: Text('Perfil',
+        style: TextStyle(
+          color: MyColors.cor3,
+        )
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -167,7 +175,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Text('Sair da Conta'),
                     Icon(
-                      Icons.arrow_forward,
+                      Icons.logout,
                       color: MyColors.cor3,
                     ),
                   ],
@@ -178,11 +186,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
       bottomNavigationBar: BottomNavBar(
-        currentIndex: 3,
-        onTap: (index) {
+        currentIndex: _currentIndex,
+        onTap: (menu) {
           setState(() {
-            // Implemente a lógica de navegação aqui
+            _currentIndex = menu;
           });
+          if (menu == 0) {
+            // Navegar para a tela de menu
+            Navigator.pushNamed(context, '/menu');
+          } else if (menu == 1) {
+            // Navegar para a tela de modulo
+            Navigator.pushNamed(context, '/modulo');
+          } else if (menu == 2) {
+            // Navegar para a tela de Perfil
+            Navigator.pushNamed(context, '/notificacao');
+          }
         },
       ),
     );

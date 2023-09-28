@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'widge/naviBar.dart';
+import 'widge/buttonNaviBar.dart';
 import 'widge/colors.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -17,11 +17,9 @@ class _MenuScreenState extends State<MenuScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        title: Text('Menu'),
-      ),
+
       body: Center(
+        heightFactor: 10,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -110,14 +108,23 @@ class _MenuScreenState extends State<MenuScreen> {
       ),
       bottomNavigationBar: BottomNavBar(
         currentIndex: _currentIndex,
-        onTap: (index) {
+        onTap: (menu) {
           setState(() {
-            _currentIndex = index;
+            _currentIndex = menu;
           });
-
           // Implemente a lógica de navegação aqui
           // Pode usar um Navigator.push para navegar para diferentes telas
           // com base no índice selecionado.
+          if (menu == 1) {
+            // Navegar para a tela de Módulo
+            Navigator.pushNamed(context, '/modulo');
+          } else if (menu == 2) {
+            // Navegar para a tela de Notificação
+            Navigator.pushNamed(context, '/notificacao');
+          } else if (menu == 3) {
+            // Navegar para a tela de Perfil
+            Navigator.pushNamed(context, '/perfil');
+          }
         },
       ),
     );

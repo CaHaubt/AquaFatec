@@ -16,31 +16,43 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: widget.currentIndex,
-      onTap: (index) {
-        if (index == 3) {
-          // Se o índice for 3 (perfil), navegue para a tela de perfil
+      onTap: (menu) {
+        if (menu == 0){
+          // Se o índice for 0 (modulo), navegue para a tela de modulo
+          Navigator.pushNamed(context, '/menu');
+        }
+        else if(menu == 1) {
+          // Se o índice for 0 (modulo), navegue para a tela de modulo
+          Navigator.pushNamed(context, '/modulo');
+        }
+        else if (menu == 2) {
+          // Se o índice for 1 (notificação), navegue para a tela de notificações
+          Navigator.pushNamed(context, '/notificacao');
+        } else if (menu == 3) {
+          // Se o índice for 2 (perfil), navegue para a tela de perfil
           Navigator.pushNamed(context, '/perfil');
-        } else {
+        }
+        else {
           // Caso contrário, chame a função de retorno onTap
-          widget.onTap(index);
+          widget.onTap(menu);
         }
       },
       items: [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Icon(Icons.home_outlined),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
-          label: 'Search',
+          icon: Icon(Icons.grid_view_outlined),
+          label: 'Modulo',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favorites',
+          icon: Icon(Icons.notifications_none),
+          label: 'Notificação',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
+          icon: Icon(Icons.person_outline),
+          label: 'Perfil',
         ),
       ],
       unselectedItemColor: MyColors.cor1,
