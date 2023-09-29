@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../widgets/navibar.dart';
-import '../widgets/appbar.dart'; // Importe o novo widget AppBarWidget
-import '../widgets/colors.dart';
+import '/widgets/navibar.dart';
+import '/widgets/appbar.dart';
+import '/widgets/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -18,12 +18,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.color4,
+      appBar: CustomAppBar(title: 'Configurações de perfil'), // Usando o novo widget AppBarWidget
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CustomAppBar(title: 'Configurações de perfil'), // Usando o novo widget AppBarWidget
             Row(
               children: [
                 CircleAvatar(
@@ -64,6 +64,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: MyColors.containerButton,
+                boxShadow: [ // Adiciona sombra
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: Offset(0, 2),
+                  ),
+                ],
               ),
               padding: const EdgeInsets.all(16),
               child: Row(
@@ -160,6 +168,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: MyColors.containerButton,
+          boxShadow: [ // Adiciona sombra
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(0, 2),
+            ),
+          ],
         ),
         padding: const EdgeInsets.all(16),
         child: Row(

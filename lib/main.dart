@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '/screens/register.dart';
-import '/screens/logo.dart';
+import '/screens/loading.dart';
 import '/screens/login.dart';
 import '/screens/home.dart';
 import '/screens/profile.dart';
@@ -21,7 +21,7 @@ class AquaFatecApp extends StatelessWidget {
       ),
       initialRoute: '/logo',
       routes: {
-        '/logo': (context) => const LogoScreen(),
+        '/logo': (context) => const LoadingScreen(),
         '/welcome': (context) => WelcomeScreen(),
         '/login': (context) => LoginScreen(),
         '/register': (context) => CadastroScreen(),

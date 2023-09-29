@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/widgets/navibar.dart';
 import '/widgets/colors.dart';
+import '/widgets/appbar.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,75 +15,55 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        heightFactor: 10,
+      appBar: CustomAppBar(title: 'Menu inicial'), // Usar a CustomAppBar
+      body: Padding(
+        padding: const EdgeInsets.all(26.0), // Espaçamento geral
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch, // Esticar os filhos horizontalmente
           children: [
-            Text(
-              'Menu',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: MyColors.color3,
-              ),
-            ),
-            const SizedBox(height: 16),
             const Text(
-              'Selecione o módulo que deseja acessar',
-              style: TextStyle(fontSize: 16),
+              'Selecione o módulo que deseja acessar:',
+              style: TextStyle(
+                fontSize: 17, // Alterado para 18
+                fontWeight: FontWeight.bold, // Negrito
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center, // Centralizar o texto
             ),
-            const SizedBox(height: 24),
-            _buildMenuRow(context, [
-              MenuButton(
-                imageAsset: 'assets/ph.png',
-                buttonText: 'pH',
-                onPressed: () {
-                  // Ação quando o botão for clicado (PH)
-                },
+            const SizedBox(height: 45), // Espaço maior entre o texto e os botões
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                mainAxisSpacing: 16.0,
+                crossAxisSpacing: 16.0,
+                children: [
+                  _buildMenuItem(
+                    imageAsset: 'assets/ph.png',
+                    buttonText: 'pH',
+                  ),
+                  _buildMenuItem(
+                    imageAsset: 'assets/alimentador.png',
+                    buttonText: 'Alimentador',
+                  ),
+                  _buildMenuItem(
+                    imageAsset: 'assets/nivelAgua.png',
+                    buttonText: 'Nível d´agua',
+                  ),
+                  _buildMenuItem(
+                    imageAsset: 'assets/oxigenio.png',
+                    buttonText: 'Oxigênio',
+                  ),
+                  _buildMenuItem(
+                    imageAsset: 'assets/temperatura.png',
+                    buttonText: 'Temperatura',
+                  ),
+                  _buildMenuItem(
+                    imageAsset: 'assets/turbidez.png',
+                    buttonText: 'Turbidez',
+                  ),
+                ],
               ),
-              MenuButton(
-                imageAsset: 'assets/alimentador.png',
-                buttonText: 'Alimentador',
-                onPressed: () {
-                  // Ação quando o botão for clicado (alimentador)
-                },
-              ),
-            ]),
-            const SizedBox(height: 16),
-            _buildMenuRow(context, [
-              MenuButton(
-                imageAsset: 'assets/nivelAgua.png',
-                buttonText: 'Nível d´agua',
-                onPressed: () {
-                  // Ação quando o botão for clicado (nivelAgua)
-                },
-              ),
-              MenuButton(
-                imageAsset: 'assets/oxigenio.png',
-                buttonText: 'Oxigênio',
-                onPressed: () {
-                  // Ação quando o botão for clicado (oxigenio)
-                },
-              ),
-            ]),
-            const SizedBox(height: 16),
-            _buildMenuRow(context, [
-              MenuButton(
-                imageAsset: 'assets/temperatura.png',
-                buttonText: 'Temperatura',
-                onPressed: () {
-                  // Ação quando o botão for clicado (temperatura)
-                },
-              ),
-              MenuButton(
-                imageAsset: 'assets/turbidez.png',
-                buttonText: 'Turbidez',
-                onPressed: () {
-                  // Ação quando o botão for clicado (turbidez)
-                },
-              ),
-            ]),
+            ),
           ],
         ),
       ),
@@ -110,42 +91,55 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildMenuRow(BuildContext context, List<MenuButton> buttons) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: buttons.map((button) => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: button,
-      )).toList(),
-    );
-  }
-}
-
-class MenuButton extends StatelessWidget {
-  final String imageAsset;
-  final String buttonText;
-  final VoidCallback onPressed;
-
-  const MenuButton({
-    required this.imageAsset,
-    required this.buttonText,
-    required this.onPressed,
-  });
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildMenuItem({
+    required String imageAsset,
+    required String buttonText,
+  }) {
     return InkWell(
-      onTap: onPressed,
-      child: Column(
-        children: [
-          Image.asset(
-            imageAsset,
-            width: 100,
-            height: 100,
+      onTap: () {
+        // Ação quando o botão for clicado (se necessário)
+      },
+      child: InkResponse(
+        onTap: () {
+          // Ação quando o botão for clicado (se necessário)
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: MyColors.containerButton,
+            borderRadius: BorderRadius.circular(16.0),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                spreadRadius: 1,
+                blurRadius: 2,
+                offset: Offset(0, 2),
+              ),
+            ],
           ),
-          const SizedBox(height: 5),
-          Text(buttonText),
-        ],
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Hero(
+                tag: buttonText,
+                child: Image.asset(
+                  imageAsset,
+                  width: 80,
+                  height: 80,
+                ),
+              ),
+              const SizedBox(height: 10), // Espaçamento entre a imagem e o texto
+              Text(
+                buttonText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: MyColors.color3, // Cor do texto
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

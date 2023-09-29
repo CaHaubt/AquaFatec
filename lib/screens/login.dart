@@ -1,42 +1,58 @@
 import 'package:flutter/material.dart';
-import '/screens/register.dart';
 import '/widgets/colors.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: Colors.white,
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView( // Envolve o Column com SingleChildScrollView
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              SizedBox(height: 20.0), // Reduzindo o espaçamento aqui
+              Image.asset(
+                'assets/logo.png',
+                width: 120,
+                height: 120,
+                alignment: Alignment.center,
+              ),
+              const SizedBox(height: 12.0),
               Text(
-                'Bem-vindo de Volta!',
+                'Estamos felizes em tê-lo de volta!',
                 style: TextStyle(
-                  fontSize: 24.0,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.bold,
                   color: MyColors.color3,
                 ),
               ),
-              const SizedBox(height: 16.0),
               Text(
-                'Estamos felizes em tê-lo de volta. Você pode prosseguir de onde parou efetuando o login.',
+                'Você pode prosseguir de onde parou efetuando o login.',
                 style: TextStyle(
-                  fontSize: 16.0,
-                  color: MyColors.color2,
+                  fontSize: 14.0,
+                  color: MyColors.color1,
+                ),
+              ),
+              const SizedBox(height: 32.0),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Endereço de E-mail',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                 ),
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                decoration: const InputDecoration(labelText: 'Endereço de E-mail'),
-              ),
-              const SizedBox(height: 16.0),
-              TextFormField(
                 obscureText: true,
-                decoration: const InputDecoration(labelText: 'Senha'),
+                decoration: InputDecoration(
+                  labelText: 'Senha',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                ),
               ),
               const SizedBox(height: 16.0),
               TextButton(
@@ -48,14 +64,25 @@ class LoginScreen extends StatelessWidget {
                 ),
                 child: const Text('Esqueceu sua senha?'),
               ),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/home'); // Alterado para '/home'
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: MyColors.color3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
-                child: const Text('Login'),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
               const SizedBox(height: 16.0),
               Text(
@@ -64,22 +91,35 @@ class LoginScreen extends StatelessWidget {
                   fontSize: 16.0,
                   color: MyColors.color2,
                 ),
+                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 16.0),
-              ElevatedButton(
+              OutlinedButton(
                 onPressed: () {
                   // Ação para "Login com o Google"
                 },
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: MyColors.color2, shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                ),
                 child: const Text('Login com o Google'),
               ),
               const SizedBox(height: 16.0),
-              ElevatedButton(
+              OutlinedButton(
                 onPressed: () {
                   // Ação para "Login com o Facebook"
                 },
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: MyColors.color2, shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                ),
                 child: const Text('Login com o Facebook'),
               ),
-              const SizedBox(height: 16.0),
+              const SizedBox(height: 32.0),
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/register'); // Alterado para '/register'

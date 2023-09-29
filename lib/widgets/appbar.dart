@@ -7,15 +7,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   CustomAppBar({required this.title});
 
   @override
-  Size get preferredSize => Size.fromHeight(80.0); // Ajuste a altura conforme necessário
+  Size get preferredSize => const Size.fromHeight(60.0); // Altura padrão da barra de aplicativos
 
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
       preferredSize: preferredSize,
       child: Container(
-        alignment: Alignment.topLeft, // Alinhe o texto ao topo verticalmente
-        padding: EdgeInsets.only(top: 30.0, left: 10.0, bottom: 30.0), // Ajuste o padding para alinhar verticalmente no topo e adicionar espaço abaixo do texto
+        alignment: Alignment.centerLeft, // Alinhe o texto à esquerda verticalmente
+        padding: const EdgeInsets.only(top: 30.0,left: 16.0), // Ajuste o padding para alinhar verticalmente à esquerda
         color: MyColors.color4, // Cor de fundo definida como MyColors.color4
         child: Text(
           title,
