@@ -1,4 +1,4 @@
-import 'package:aquafatec/widge/colors.dart';
+import '/widgets/colors.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatefulWidget {

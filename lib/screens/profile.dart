@@ -1,7 +1,6 @@
-import 'package:aquafatec/widge/colors.dart';
 import 'package:flutter/material.dart';
-import 'widge/navibar.dart';
-import 'widge/colors.dart';
+import '/widgets/navibar.dart';
+import '/widgets/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override

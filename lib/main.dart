@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:aquafatec/register.dart';
-import 'logo.dart';
-import 'login.dart';
-import 'home.dart';
-import 'widge/colors.dart';
-import 'profile.dart';
+import 'screens/register.dart';
+import 'screens/logo.dart';
+import 'screens/login.dart';
+import 'screens/home.dart';
+import 'screens/profile.dart';
 
 void main() {
   runApp(AquaFatecApp());
