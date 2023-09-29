@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '/widgets/navibar.dart';
-import '/widgets/colors.dart';
+import '../widgets/navibar.dart';
+import '../widgets/appbar.dart'; // Importe o novo widget AppBarWidget
+import '../widgets/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -17,32 +18,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.color4,
-      appBar: AppBar(
-        title: Text(
-          'Perfil',
-          style: TextStyle(
-            color: MyColors.color3,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            CustomAppBar(title: 'Configurações de perfil'), // Usando o novo widget AppBarWidget
             Row(
               children: [
                 CircleAvatar(
-                  radius: 60,
+                  radius: 40,
                   backgroundColor: MyColors.color2,
                   child: const Icon(
                     Icons.person,
-                    size: 80,
+                    size: 60,
                     color: Colors.white,
                   ),
                 ),
@@ -53,7 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Text(
                       'Nome do Usuário',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 20, // Tamanho da fonte reduzido em 2
                         fontWeight: FontWeight.bold,
                         color: MyColors.color3,
                       ),
@@ -69,8 +58,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 16),
             Container(
+              height: 72,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: MyColors.containerButton,
@@ -102,25 +92,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             _buildProfileOption(
-              text: 'Alterar Senha',
+              text: 'Gerenciar Perfil', // Alterado o texto
               icon: Icons.arrow_forward,
               onTap: () {
-                // Implemente a navegação para a tela de Alterar Senha aqui
-                Navigator.pushNamed(context, '/alterar_senha');
+                // Implemente a navegação para a tela de Gerenciar Perfil aqui
+                Navigator.pushNamed(context, '/gerenciar_perfil');
               },
             ),
             const SizedBox(height: 16),
+            Spacer(), // Espaço flexível para empurrar "Sair da Conta" para cima
             _buildProfileOption(
-              text: 'Alterar Perfil',
-              icon: Icons.arrow_forward,
+              text: 'Ajuda e Feedback', // Novo botão
+              icon: Icons.help_outline,
               onTap: () {
-                // Implemente a navegação para a tela de Alterar Perfil aqui
-                Navigator.pushNamed(context, '/alterar_perfil');
+                // Implemente a navegação para a tela de Suporte aqui
+                Navigator.pushNamed(context, '/suporte');
               },
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16), // Espaço entre "Ajuda e Feedback" e "Termos & Condições"
             _buildProfileOption(
               text: 'Termos & Condições',
               icon: Icons.arrow_forward,
