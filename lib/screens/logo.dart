@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'welcome.dart';
 
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class LogoScreen extends StatelessWidget {
+  const LogoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => WelcomeScreen()),

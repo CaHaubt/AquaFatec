@@ -2,22 +2,18 @@ import 'package:flutter/material.dart';
 import '/widgets/navibar.dart';
 import '/widgets/colors.dart';
 
-class MenuScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _MenuScreenState createState() => _MenuScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _MenuScreenState extends State<MenuScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    Color cor1 = Color.fromRGBO(178, 0, 0, 1.0);
-    Color cor2 = Color.fromRGBO(39, 51, 54, 1.0);
-
     return Scaffold(
       backgroundColor: Colors.white,
-
       body: Center(
         heightFactor: 10,
         child: Column(
@@ -28,81 +24,65 @@ class _MenuScreenState extends State<MenuScreen> {
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: MyColors.cor3,
+                color: MyColors.color3,
               ),
             ),
-            SizedBox(height: 16),
-            Text(
+            const SizedBox(height: 16),
+            const Text(
               'Selecione o módulo que deseja acessar',
               style: TextStyle(fontSize: 16),
             ),
-            SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(
-                      8.0), // Espaçamento vertical e horizontal
-                  child: _buildMenuButton(context, 'assets/ph.png', 'pH', () {
-                    // Ação quando o botão for clicado (PH)
-                  }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(
-                      8.0), // Espaçamento vertical e horizontal
-                  child: _buildMenuButton(
-                      context, 'assets/alimentador.png', 'Alimentador', () {
-                    // Ação quando o botão for clicado (alimentador)
-                  }),
-                ),
-              ],
-            ),
-            SizedBox(
-                height: 16), // Espaçamento vertical entre as linhas de botões
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(
-                      8.0), // Espaçamento vertical e horizontal
-                  child: _buildMenuButton(
-                      context, 'assets/nivelAgua.png', 'Nível d´agua', () {
-                    // Ação quando o botão for clicado (nivelAgua)
-                  }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(
-                      8.0), // Espaçamento vertical e horizontal
-                  child: _buildMenuButton(
-                      context, 'assets/oxigenio.png', 'Oxigênio', () {
-                    // Ação quando o botão for clicado (oxigenio)
-                  }),
-                ),
-              ],
-            ),
-            SizedBox(
-                height: 16), // Espaçamento vertical entre as linhas de botões
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(
-                      8.0), // Espaçamento vertical e horizontal
-                  child: _buildMenuButton(
-                      context, 'assets/temperatura.png', 'Temperatura', () {
-                    // Ação quando o botão for clicado (temperatura)
-                  }),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(
-                      8.0), // Espaçamento vertical e horizontal
-                  child: _buildMenuButton(
-                      context, 'assets/turbidez.png', 'Turbidez', () {
-                    // Ação quando o botão for clicado (turbidez)
-                  }),
-                ),
-              ],
-            ),
+            const SizedBox(height: 24),
+            _buildMenuRow(context, [
+              MenuButton(
+                imageAsset: 'assets/ph.png',
+                buttonText: 'pH',
+                onPressed: () {
+                  // Ação quando o botão for clicado (PH)
+                },
+              ),
+              MenuButton(
+                imageAsset: 'assets/alimentador.png',
+                buttonText: 'Alimentador',
+                onPressed: () {
+                  // Ação quando o botão for clicado (alimentador)
+                },
+              ),
+            ]),
+            const SizedBox(height: 16),
+            _buildMenuRow(context, [
+              MenuButton(
+                imageAsset: 'assets/nivelAgua.png',
+                buttonText: 'Nível d´agua',
+                onPressed: () {
+                  // Ação quando o botão for clicado (nivelAgua)
+                },
+              ),
+              MenuButton(
+                imageAsset: 'assets/oxigenio.png',
+                buttonText: 'Oxigênio',
+                onPressed: () {
+                  // Ação quando o botão for clicado (oxigenio)
+                },
+              ),
+            ]),
+            const SizedBox(height: 16),
+            _buildMenuRow(context, [
+              MenuButton(
+                imageAsset: 'assets/temperatura.png',
+                buttonText: 'Temperatura',
+                onPressed: () {
+                  // Ação quando o botão for clicado (temperatura)
+                },
+              ),
+              MenuButton(
+                imageAsset: 'assets/turbidez.png',
+                buttonText: 'Turbidez',
+                onPressed: () {
+                  // Ação quando o botão for clicado (turbidez)
+                },
+              ),
+            ]),
           ],
         ),
       ),
@@ -112,26 +92,48 @@ class _MenuScreenState extends State<MenuScreen> {
           setState(() {
             _currentIndex = menu;
           });
-          // Implemente a lógica de navegação aqui
-          // Pode usar um Navigator.push para navegar para diferentes telas
-          // com base no índice selecionado.
-          if (menu == 1) {
-            // Navegar para a tela de Módulo
-            Navigator.pushNamed(context, '/modulo');
+          if (menu == 0) {
+            // Navegar para a tela inicial (welcome)
+            Navigator.pushNamed(context, '/welcome');
+          } else if (menu == 1) {
+            // Navegar para a tela de login
+            Navigator.pushNamed(context, '/login');
           } else if (menu == 2) {
-            // Navegar para a tela de Notificação
-            Navigator.pushNamed(context, '/notificacao');
+            // Navegar para a tela de registro (register)
+            Navigator.pushNamed(context, '/register');
           } else if (menu == 3) {
-            // Navegar para a tela de Perfil
-            Navigator.pushNamed(context, '/perfil');
+            // Navegar para a tela de perfil
+            Navigator.pushNamed(context, '/profile');
           }
         },
       ),
     );
   }
 
-  Widget _buildMenuButton(BuildContext context, String imageAsset,
-      String buttonText, VoidCallback onPressed) {
+  Widget _buildMenuRow(BuildContext context, List<MenuButton> buttons) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: buttons.map((button) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: button,
+      )).toList(),
+    );
+  }
+}
+
+class MenuButton extends StatelessWidget {
+  final String imageAsset;
+  final String buttonText;
+  final VoidCallback onPressed;
+
+  const MenuButton({
+    required this.imageAsset,
+    required this.buttonText,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
       child: Column(
@@ -141,7 +143,7 @@ class _MenuScreenState extends State<MenuScreen> {
             width: 100,
             height: 100,
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
           Text(buttonText),
         ],
       ),

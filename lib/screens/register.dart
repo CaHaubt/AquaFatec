@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-
+import '/widgets/colors.dart';
 
 class CadastroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Color cor1 = Color.fromRGBO(178, 0, 0, 1.0);
-    Color cor2 = Color.fromRGBO(39, 51, 54, 1.0);
-    Color cor3 = Color.fromRGBO(0, 92, 109, 1.0);
-
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -15,19 +11,19 @@ class CadastroScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Bem vindo ao Tecponia!',
+              'Bem-vindo ao AquaFatec!',
               style: TextStyle(
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.bold,
-                  color: cor3,
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold,
+                color: MyColors.color3,
               ),
             ),
             SizedBox(height: 16.0),
             Text(
-              'Olá! Acredito que seja novo (a) aqui. Você pode começar a usar assim que efetuar a inscrição.',
+              'Olá! Acredito que seja novo(a) aqui. Você pode começar a usar assim que efetuar a inscrição.',
               style: TextStyle(
-                  fontSize: 16.0,
-                  color: cor2,
+                fontSize: 16.0,
+                color: MyColors.color2,
               ),
             ),
             SizedBox(height: 16.0),
@@ -54,7 +50,7 @@ class CadastroScreen extends StatelessWidget {
                 // Ação para o botão "Inscrever"
               },
               style: ElevatedButton.styleFrom(
-                primary: cor3,
+                backgroundColor: MyColors.color3,
               ),
               child: Text('Inscrever'),
             ),
@@ -62,10 +58,10 @@ class CadastroScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/login');
-                // ação botão voltar login
+                // Ação botão "Voltar para o login"
               },
               style: ElevatedButton.styleFrom(
-                primary: cor3,
+                backgroundColor: MyColors.color3,
               ),
               child: Text('Voltar'),
             ),

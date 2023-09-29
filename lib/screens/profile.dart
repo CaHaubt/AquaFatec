@@ -3,6 +3,8 @@ import '/widgets/navibar.dart';
 import '/widgets/colors.dart';
 
 class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
+
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
 }
@@ -14,11 +16,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
+      backgroundColor: MyColors.color4,
       appBar: AppBar(
         title: Text('Perfil',
         style: TextStyle(
-          color: MyColors.cor3,
+          color: MyColors.color3,
         )
         ),
         backgroundColor: Colors.white,
@@ -34,15 +36,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 CircleAvatar(
                   radius: 60,
-                  backgroundColor: MyColors.cor2,
-                  child: Icon(
+                  backgroundColor: MyColors.color2,
+                  child: const Icon(
                     Icons.person,
                     size: 80,
                     color: Colors.white,
                   ),
                 ),
-                SizedBox(width: 16),
-                Column(
+                const SizedBox(width: 16),
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -60,16 +62,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ],
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: MyColors.containerBotao,
+                color: MyColors.containerButton,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Notificações'),
+                  const Text('Notificações'),
                   Switch(
                     value: notificationsEnabled,
                     onChanged: (value) {
@@ -78,15 +80,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       });
                       // Implemente a lógica para ativar/desativar notificações aqui
                     },
-                    activeTrackColor: MyColors.cor3,
+                    activeTrackColor: MyColors.color3,
                     inactiveTrackColor: MyColors.offToggle,
-                    activeColor: MyColors.white,
-                    inactiveThumbColor: MyColors.white,
+                    activeColor: MyColors.color4,
+                    inactiveThumbColor: MyColors.color4,
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             InkWell(
               onTap: () {
                 // Implemente a navegação para a tela de Alterar Senha aqui
@@ -95,22 +97,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: MyColors.containerBotao,
+                  color: MyColors.containerButton,
                 ),
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Alterar Senha'),
+                    const Text('Alterar Senha'),
                     Icon(
                       Icons.arrow_forward,
-                      color: MyColors.cor3,
+                      color: MyColors.color3,
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             InkWell(
               onTap: () {
                 // Implemente a navegação para a tela de Alterar Perfil aqui
@@ -119,22 +121,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: MyColors.containerBotao,
+                  color: MyColors.containerButton,
                 ),
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Alterar Perfil'),
+                    const Text('Alterar Perfil'),
                     Icon(
                       Icons.arrow_forward,
-                      color: MyColors.cor3,
+                      color: MyColors.color3,
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             InkWell(
               onTap: () {
                 // Implemente a navegação para a tela de Termos & Condições aqui
@@ -143,22 +145,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: MyColors.containerBotao,
+                  color: MyColors.containerButton,
                 ),
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Termos & Condições'),
+                    const Text('Termos & Condições'),
                     Icon(
                       Icons.arrow_forward,
-                      color: MyColors.cor3,
+                      color: MyColors.color3,
                     ),
                   ],
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             InkWell(
               onTap: () {
                 // Implemente a lógica para sair da conta aqui
@@ -166,16 +168,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: MyColors.containerBotao,
+                  color: MyColors.containerButton,
                 ),
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Sair da Conta'),
+                    const Text('Sair da Conta'),
                     Icon(
                       Icons.logout,
-                      color: MyColors.cor3,
+                      color: MyColors.color3,
                     ),
                   ],
                 ),

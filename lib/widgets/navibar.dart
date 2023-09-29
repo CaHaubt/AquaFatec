@@ -1,50 +1,46 @@
 import '/widgets/colors.dart';
 import 'package:flutter/material.dart';
 
-class BottomNavBar extends StatefulWidget {
+class BottomNavBar extends StatelessWidget {
   final int currentIndex;
   final Function(int) onTap;
 
-  BottomNavBar({required this.currentIndex, required this.onTap});
+  const BottomNavBar({
+    Key? key,
+    required this.currentIndex,
+    required this.onTap,
+  }) : super(key: key);
 
-  @override
-  _BottomNavBarState createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: widget.currentIndex,
+      currentIndex: currentIndex,
       onTap: (menu) {
-        if (menu == 0){
-          // Se o índice for 0 (modulo), navegue para a tela de modulo
-          Navigator.pushNamed(context, '/menu');
-        }
-        else if(menu == 1) {
-          // Se o índice for 0 (modulo), navegue para a tela de modulo
+        if (menu == 0) {
+          // Se o índice for 0 (home), navegue para a tela de home
+          Navigator.pushNamed(context, '/home');
+        } else if (menu == 1) {
+          // Se o índice for 1 (modulo), navegue para a tela de modulo
           Navigator.pushNamed(context, '/modulo');
-        }
-        else if (menu == 2) {
-          // Se o índice for 1 (notificação), navegue para a tela de notificações
+        } else if (menu == 2) {
+          // Se o índice for 2 (notificacao), navegue para a tela de notificacao
           Navigator.pushNamed(context, '/notificacao');
         } else if (menu == 3) {
-          // Se o índice for 2 (perfil), navegue para a tela de perfil
-          Navigator.pushNamed(context, '/perfil');
-        }
-        else {
+          // Se o índice for 3 (perfil), navegue para a tela de perfil
+          Navigator.pushNamed(context, '/profile');
+        } else {
           // Caso contrário, chame a função de retorno onTap
-          widget.onTap(menu);
+          onTap(menu);
         }
       },
-      items: [
+      items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
           label: 'Home',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.grid_view_outlined),
-          label: 'Modulo',
+          label: 'Módulo',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.notifications_none),
@@ -55,8 +51,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           label: 'Perfil',
         ),
       ],
-      unselectedItemColor: MyColors.cor1,
-      selectedItemColor: MyColors.cor3,
+      unselectedItemColor: MyColors.color1,
+      selectedItemColor: MyColors.color3,
     );
   }
 }

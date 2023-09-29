@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'register.dart';
-import 'home.dart';
+import '/screens/register.dart';
+import '/widgets/colors.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Color cor1 = Color.fromRGBO(178, 0, 0, 1.0);
-    Color cor2 = Color.fromRGBO(39, 51, 54, 1.0);
-    Color cor3 = Color.fromRGBO(0, 92, 109, 1.0);
-
     return Scaffold(
       body: Container(
         color: Colors.white,
         child: Padding(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -22,76 +18,76 @@ class LoginScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
-                  color: cor3,
+                  color: MyColors.color3,
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Text(
                 'Estamos felizes em tê-lo de volta. Você pode prosseguir de onde parou efetuando o login.',
                 style: TextStyle(
                   fontSize: 16.0,
-                  color: cor2,
+                  color: MyColors.color2,
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Endereço de E-mail'),
+                decoration: const InputDecoration(labelText: 'Endereço de E-mail'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 obscureText: true,
-                decoration: InputDecoration(labelText: 'Senha'),
+                decoration: const InputDecoration(labelText: 'Senha'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextButton(
                 onPressed: () {
                   // Ação para "Esqueceu sua senha?"
                 },
                 style: TextButton.styleFrom(
-                  primary: cor2,
+                  foregroundColor: MyColors.color2,
                 ),
-                child: Text('Esqueceu sua senha?'),
+                child: const Text('Esqueceu sua senha?'),
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/menu');
+                  Navigator.pushNamed(context, '/home'); // Alterado para '/home'
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: cor3,
+                  backgroundColor: MyColors.color3,
                 ),
-                child: Text('Login'),
+                child: const Text('Login'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Text(
                 'ou',
                 style: TextStyle(
                   fontSize: 16.0,
-                  color: cor2,
+                  color: MyColors.color2,
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   // Ação para "Login com o Google"
                 },
-                child: Text('Login com o Google'),
+                child: const Text('Login com o Google'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
                   // Ação para "Login com o Facebook"
                 },
-                child: Text('Login com o Facebook'),
+                child: const Text('Login com o Facebook'),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/cadastro');
+                  Navigator.pushNamed(context, '/register'); // Alterado para '/register'
                 },
                 style: TextButton.styleFrom(
-                  primary: cor1,
+                  foregroundColor: MyColors.color1,
                 ),
-                child: Text('Não tem uma conta? Se inscreva.'),
+                child: const Text('Não tem uma conta? Se inscreva.'),
               ),
             ],
           ),
