@@ -3,11 +3,11 @@ import 'dart:async';
 import 'welcome.dart';
 
 class LoadingScreen extends StatelessWidget {
-  const LoadingScreen({super.key});
+  const LoadingScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => WelcomeScreen()),
@@ -25,6 +25,10 @@ class LoadingScreen extends StatelessWidget {
                 'assets/logo.png',
                 width: 200,
                 height: 200,
+              ),
+              const SizedBox(height: 20.0), // Espaço entre a imagem e a animação
+              CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue), // Cor da animação
               ),
             ],
           ),
