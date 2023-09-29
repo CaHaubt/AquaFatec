@@ -26,7 +26,7 @@ class CadastroScreen extends StatelessWidget {
               'Olá! Acredito que seja novo(a) aqui. Você pode começar a usar assim que efetuar a inscrição.',
               style: TextStyle(
                 fontSize: 16.0, // Aumentei o tamanho da fonte
-                color: MyColors.color2,
+                color: MyColors.color1,
               ),
               textAlign: TextAlign.center, // Centralizei o texto
             ),
