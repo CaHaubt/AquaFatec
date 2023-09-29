@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'widge/buttonNaviBar.dart';
+import 'widge/navibar.dart';
 import 'widge/colors.dart';
 
 class MenuScreen extends StatefulWidget {

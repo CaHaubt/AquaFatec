@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'cadastro.dart';
-import 'menuInicial.dart';
+import 'register.dart';
+import 'home.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
