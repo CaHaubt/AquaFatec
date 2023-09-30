@@ -36,15 +36,15 @@ class BottomNavBar extends StatelessWidget {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home_outlined),
-          label: 'Home',
+          label: 'Menu',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.grid_view_outlined),
-          label: 'Módulo',
+          label: 'Painel',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.notifications_none),
-          label: 'Notificação',
+          label: 'Notificações',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),

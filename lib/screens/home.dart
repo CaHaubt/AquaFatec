@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '/widgets/navibar.dart';
 import '/widgets/colors.dart';
-import '/widgets/appbar.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -15,12 +14,18 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar(title: 'Menu inicial'), // Usar a CustomAppBar
       body: Padding(
         padding: const EdgeInsets.all(26.0), // Espaçamento geral
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch, // Esticar os filhos horizontalmente
           children: [
+            SizedBox(height: 15.0), // Reduzindo o espaçamento aqui
+            Image.asset(
+              'assets/logo.png',
+              width: 120,
+              height: 120,
+              alignment: Alignment.center,
+            ),
             const Text(
               'Selecione o módulo que deseja acessar:',
               style: TextStyle(
@@ -30,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               textAlign: TextAlign.center, // Centralizar o texto
             ),
-            const SizedBox(height: 45), // Espaço maior entre o texto e os botões
+            const SizedBox(height: 5), // Espaço maior entre o texto e os botões
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -39,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   _buildMenuItem(
                     imageAsset: 'assets/ph.png',
-                    buttonText: 'pH',
+                    buttonText: 'pH ',
                   ),
                   _buildMenuItem(
                     imageAsset: 'assets/alimentador.png',

@@ -28,6 +28,7 @@ class LoginScreen extends StatelessWidget {
                   color: MyColors.color3,
                 ),
               ),
+              const SizedBox(height: 5.0),
               Text(
                 'Você pode prosseguir de onde parou efetuando o login.',
                 style: TextStyle(

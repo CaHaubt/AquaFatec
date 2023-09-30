@@ -27,6 +27,7 @@ class AquaFatecApp extends StatelessWidget {
         '/register': (context) => CadastroScreen(),
         '/home': (context) => HomeScreen(),
         '/profile': (context) => const ProfileScreen(),
+        //'/notification': (context) => NotificationScreen(),
       },
     );
   }

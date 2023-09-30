@@ -106,7 +106,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               icon: Icons.arrow_forward,
               onTap: () {
                 // Implemente a navegação para a tela de Gerenciar Perfil aqui
-                Navigator.pushNamed(context, '/gerenciar_perfil');
+                Navigator.pushNamed(context, '/manage_profile');
               },
             ),
             const SizedBox(height: 16),
@@ -116,16 +116,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
               icon: Icons.help_outline,
               onTap: () {
                 // Implemente a navegação para a tela de Suporte aqui
-                Navigator.pushNamed(context, '/suporte');
+                Navigator.pushNamed(context, '/support');
               },
             ),
             SizedBox(height: 16), // Espaço entre "Ajuda e Feedback" e "Termos & Condições"
             _buildProfileOption(
-              text: 'Termos & Condições',
+              text: 'Sobre & Aviso legal',
               icon: Icons.arrow_forward,
               onTap: () {
                 // Implemente a navegação para a tela de Termos & Condições aqui
-                Navigator.pushNamed(context, '/termos_condicoes');
+                Navigator.pushNamed(context, '/about');
               },
             ),
             const SizedBox(height: 16),
@@ -150,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           } else if (menu == 1) {
             Navigator.pushNamed(context, '/modulo');
           } else if (menu == 2) {
-            Navigator.pushNamed(context, '/notificacao');
+            Navigator.pushNamed(context, '/notification');
           }
         },
       ),
