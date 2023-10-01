@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '/widgets/navibar.dart';
 import '/widgets/colors.dart';
+import '/screens/module.dart'; // Importe a tela do módulo
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -15,11 +16,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(26.0), // Espaçamento geral
+        padding: const EdgeInsets.all(26.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch, // Esticar os filhos horizontalmente
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 15.0), // Reduzindo o espaçamento aqui
+            SizedBox(height: 15.0),
             Image.asset(
               'assets/logo.png',
               width: 120,
@@ -29,13 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
             const Text(
               'Selecione o módulo que deseja acessar:',
               style: TextStyle(
-                fontSize: 15, // Alterado para 18
+                fontSize: 15,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
-              textAlign: TextAlign.center, // Centralizar o texto
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10), // Espaço maior entre o texto e os botões
+            const SizedBox(height: 10),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -44,28 +45,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   _buildMenuItem(
                     imageAsset: 'assets/ph.png',
-                    buttonText: 'pH ',
+                    buttonText: 'pH',
                   ),
-                  _buildMenuItem(
-                    imageAsset: 'assets/alimentador.png',
-                    buttonText: 'Alimentador',
-                  ),
-                  _buildMenuItem(
-                    imageAsset: 'assets/nivelAgua.png',
-                    buttonText: 'Nível d´agua',
-                  ),
-                  _buildMenuItem(
-                    imageAsset: 'assets/oxigenio.png',
-                    buttonText: 'Oxigênio',
-                  ),
-                  _buildMenuItem(
-                    imageAsset: 'assets/temperatura.png',
-                    buttonText: 'Temperatura',
-                  ),
-                  _buildMenuItem(
-                    imageAsset: 'assets/turbidez.png',
-                    buttonText: 'Turbidez',
-                  ),
+                  // Outros botões de módulo aqui...
                 ],
               ),
             ),
@@ -79,16 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = menu;
           });
           if (menu == 0) {
-            // Navegar para a tela inicial (welcome)
             Navigator.pushNamed(context, '/home');
           } else if (menu == 1) {
-            // Navegar para a tela de login
             Navigator.pushNamed(context, '/login');
           } else if (menu == 2) {
-            // Navegar para a tela de notificações
             Navigator.pushNamed(context, '/notifications');
           } else if (menu == 3) {
-            // Navegar para a tela de perfil
             Navigator.pushNamed(context, '/profile');
           }
         },
@@ -102,11 +80,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     return InkWell(
       onTap: () {
-        // Ação quando o botão for clicado (se necessário)
+        _navigateToModule(context, buttonText);
       },
       child: InkResponse(
         onTap: () {
-          // Ação quando o botão for clicado (se necessário)
+          _navigateToModule(context, buttonText);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -132,19 +110,29 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 80,
                 ),
               ),
-              const SizedBox(height: 10), // Espaçamento entre a imagem e o texto
+              const SizedBox(height: 10),
               Text(
                 buttonText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: MyColors.color3, // Cor do texto
+                  color: MyColors.color3,
                 ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _navigateToModule(BuildContext context, String buttonText) {
+    // Navegue para a tela de módulo correspondente
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ModuleScreen(moduleName: buttonText),
       ),
     );
   }
