@@ -150,7 +150,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           } else if (menu == 1) {
             Navigator.pushNamed(context, '/modulo');
           } else if (menu == 2) {
-            Navigator.pushNamed(context, '/notification');
+            Navigator.pushNamed(context, '/notifications');
           }
         },
       ),
@@ -204,13 +204,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       builder: (BuildContext context) {
         return Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(18),
           ),
           elevation: 0,
           backgroundColor: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(5),
               color: MyColors.dialogBackground,
             ),
             padding: const EdgeInsets.all(16),
@@ -225,7 +225,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: MyColors.dialogText,
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 10),
                 const Text(
                   'Ao sair da conta, você precisará fazer login novamente para acessar.',
                   textAlign: TextAlign.center,
@@ -234,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.grey,
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -243,7 +243,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: MyColors.cancelButton,
+                        backgroundColor: MyColors.color1,
+                        fixedSize: Size(110,20),
                       ),
                       child: const Text(
                         'Cancelar',
@@ -260,7 +261,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Navigator.pushNamed(context, '/login');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: MyColors.confirmButton,
+                        backgroundColor: MyColors.color2,
+                        fixedSize: Size(110,20),
                       ),
                       child: const Text(
                         'Sair',

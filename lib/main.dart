@@ -6,6 +6,7 @@ import '/screens/home.dart';
 import '/screens/profile.dart';
 import '/screens/welcome.dart';
 import '/screens/about.dart';
+import '/screens/notifications.dart';
 
 void main() {
   runApp(AquaFatecApp());
@@ -28,7 +29,7 @@ class AquaFatecApp extends StatelessWidget {
         '/register': (context) => CadastroScreen(),
         '/home': (context) => HomeScreen(),
         '/profile': (context) => const ProfileScreen(),
-        //'/notification': (context) => NotificationScreen(),
+        '/notifications': (context) => NotificationsScreen(),
         '/about': (context) => AboutScreen(),
       },
     );

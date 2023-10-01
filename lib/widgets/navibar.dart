@@ -24,7 +24,7 @@ class BottomNavBar extends StatelessWidget {
           Navigator.pushNamed(context, '/modulo');
         } else if (menu == 2) {
           // Se o índice for 2 (notificacao), navegue para a tela de notificacao
-          Navigator.pushNamed(context, '/notificacao');
+          Navigator.pushNamed(context, '/notifications');
         } else if (menu == 3) {
           // Se o índice for 3 (perfil), navegue para a tela de perfil
           Navigator.pushNamed(context, '/profile');

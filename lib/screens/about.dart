@@ -14,19 +14,6 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              alignment: Alignment.topLeft,
-              children: [
-                _buildProfileOption(
-                  text: 'Voltar',
-                  icon: Icons.arrow_back, // Ícone de voltar
-                  onTap: () {
-                    Navigator.pop(context); // Ação para voltar para a tela anterior
-                  },
-                ),
-                SizedBox(height: 16.0), // Espaço entre o botão "Voltar" e a descrição da versão
-              ],
-            ),
             Text(
               'Versão',
               style: TextStyle(
@@ -68,9 +55,18 @@ class AboutScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/third_party_notices');
               },
             ),
-          ],
+            const SizedBox(height: 16),
+            Spacer(), // Espaço entre o botão "Voltar" e a descrição da versão
+            _buildProfileOption(
+                  text: 'Voltar',
+                  icon: Icons.arrow_back, // Ícone de voltar
+                  onTap: () {
+                    Navigator.pop(context); // Ação para voltar para a tela anterior
+                  },
+                ),
+              ],
+            ),
         ),
-      ),
       bottomNavigationBar: BottomNavBar(
         currentIndex: 3, // Defina o índice correto para esta tela
         onTap: (menu) {
@@ -79,7 +75,7 @@ class AboutScreen extends StatelessWidget {
           } else if (menu == 1) {
             Navigator.pushNamed(context, '/modulo');
           } else if (menu == 2) {
-            Navigator.pushNamed(context, '/notificacao');
+            Navigator.pushNamed(context, '/notifications');
           } else if (menu == 3) {
             Navigator.pushNamed(context, '/profile');
           }

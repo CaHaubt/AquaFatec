@@ -29,13 +29,13 @@ class _HomeScreenState extends State<HomeScreen> {
             const Text(
               'Selecione o módulo que deseja acessar:',
               style: TextStyle(
-                fontSize: 17, // Alterado para 18
-                fontWeight: FontWeight.bold, // Negrito
+                fontSize: 15, // Alterado para 18
+                fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
               textAlign: TextAlign.center, // Centralizar o texto
             ),
-            const SizedBox(height: 5), // Espaço maior entre o texto e os botões
+            const SizedBox(height: 10), // Espaço maior entre o texto e os botões
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -80,13 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
           });
           if (menu == 0) {
             // Navegar para a tela inicial (welcome)
-            Navigator.pushNamed(context, '/welcome');
+            Navigator.pushNamed(context, '/home');
           } else if (menu == 1) {
             // Navegar para a tela de login
             Navigator.pushNamed(context, '/login');
           } else if (menu == 2) {
-            // Navegar para a tela de registro (register)
-            Navigator.pushNamed(context, '/register');
+            // Navegar para a tela de notificações
+            Navigator.pushNamed(context, '/notifications');
           } else if (menu == 3) {
             // Navegar para a tela de perfil
             Navigator.pushNamed(context, '/profile');
