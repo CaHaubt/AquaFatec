@@ -28,12 +28,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 CircleAvatar(
                   radius: 40,
-                  backgroundColor: MyColors.color2,
-                  child: const Icon(
-                    Icons.person,
-                    size: 60,
-                    color: Colors.white,
-                  ),
+                    child: Image.asset(
+                      'assets/avatar.png',
+                      width: 100, // Defina o tamanho desejado para a imagem
+                      height: 100,
+                    ),
                 ),
                 const SizedBox(width: 16),
                 Column(
@@ -48,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ),
                     Text(
-                      'email@example.com',
+                      'email@exemplo.com',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey[600],
