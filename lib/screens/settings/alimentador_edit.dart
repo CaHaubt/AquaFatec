@@ -191,7 +191,11 @@ class _AlimentadorEditScreenState extends State<AlimentadorEditScreen> {
         backgroundColor: Colors.green,
         child: Icon(
           Icons.check,
-          color: MyColors.color4,
+          color: Colors.white, // Defina a cor do ícone
+          size: 32.0, // Defina o tamanho do ícone
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
         ),
       ),
     );

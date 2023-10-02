@@ -7,7 +7,7 @@ import '/screens/profile.dart';
 import '/screens/welcome.dart';
 import '/screens/about.dart';
 import '/screens/notifications.dart';
-import '/screens/module.dart';
+import 'screens/settings/manage_profile.dart';
 
 void main() {
   runApp(AquaFatecApp());
@@ -32,8 +32,7 @@ class AquaFatecApp extends StatelessWidget {
         '/profile': (context) => const ProfileScreen(),
         '/notifications': (context) => NotificationsScreen(),
         '/about': (context) => AboutScreen(),
-        '/module': (context) => ModuleScreen(moduleName: 'ph'), // Substitua 'ph' pelo nome do módulo desejado
-        //'/alimentador_edit': (context) => AlimentadorEditScreen(),
+        '/manage_profile': (context) => ManageProfileScreen(),
       },
     );
   }

@@ -53,12 +53,12 @@ class _ModuleScreenState extends State<ModuleScreen> {
       backgroundColor: MyColors.color4,
       appBar: CustomAppBar(
         title: 'Dashboard - ${widget.moduleName}',
-        subtitle: 'Confira detalhes do seu sensor',
+        subtitle: 'Confira detalhes do seu dispositivo',
         showBackButton: true, // Exibe o botão de voltar apenas nesta tela
         onBackButtonPressed: () {
           Navigator.pushNamed(context, '/home');
-        }, // Adicione esta linha
-      ), // Corrija o fechamento do parêntese
+        },
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

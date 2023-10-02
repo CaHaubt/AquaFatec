@@ -8,7 +8,14 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.color4,
-      appBar: CustomAppBar(title: 'Sobre & Aviso Legal'),
+      appBar: CustomAppBar(
+        title: 'Sobre & Aviso Legal',
+        subtitle: 'Informações adicionais de privacidade',
+        showBackButton: true, // Exibe o botão de voltar apenas nesta tela
+        onBackButtonPressed: () {
+          Navigator.pushNamed(context, '/profile');
+        },
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -55,15 +62,6 @@ class AboutScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/third_party_notices');
               },
             ),
-            const SizedBox(height: 16),
-            Spacer(), // Espaço entre o botão "Voltar" e a descrição da versão
-            _buildProfileOption(
-                  text: 'Voltar',
-                  icon: Icons.arrow_back, // Ícone de voltar
-                  onTap: () {
-                    Navigator.pop(context); // Ação para voltar para a tela anterior
-                  },
-                ),
               ],
             ),
         ),
