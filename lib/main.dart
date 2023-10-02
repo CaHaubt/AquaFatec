@@ -33,6 +33,7 @@ class AquaFatecApp extends StatelessWidget {
         '/notifications': (context) => NotificationsScreen(),
         '/about': (context) => AboutScreen(),
         '/module': (context) => ModuleScreen(moduleName: 'ph'), // Substitua 'ph' pelo nome do módulo desejado
+        //'/alimentador_edit': (context) => AlimentadorEditScreen(),
       },
     );
   }

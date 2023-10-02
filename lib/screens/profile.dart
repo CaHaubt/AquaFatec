@@ -147,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (menu == 0) {
             Navigator.pushNamed(context, '/menu');
           } else if (menu == 1) {
-            Navigator.pushNamed(context, '/modulo');
+            Navigator.pushNamed(context, '/module');
           } else if (menu == 2) {
             Navigator.pushNamed(context, '/notifications');
           }
@@ -212,7 +212,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               borderRadius: BorderRadius.circular(5),
               color: MyColors.dialogBackground,
             ),
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

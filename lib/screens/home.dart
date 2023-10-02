@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '/widgets/navibar.dart';
 import '/widgets/colors.dart';
-import '/screens/module.dart'; // Importe a tela do módulo
+import '/screens/module.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -47,7 +47,26 @@ class _HomeScreenState extends State<HomeScreen> {
                     imageAsset: 'assets/ph.png',
                     buttonText: 'pH',
                   ),
-                  // Outros botões de módulo aqui...
+                  _buildMenuItem(
+                    imageAsset: 'assets/alimentador.png',
+                    buttonText: 'Alimentador',
+                  ),
+                  _buildMenuItem(
+                    imageAsset: 'assets/nivelAgua.png',
+                    buttonText: 'Nivel d água',
+                  ),
+                  _buildMenuItem(
+                    imageAsset: 'assets/oxigenio.png',
+                    buttonText: 'Oxigênio',
+                  ),
+                  _buildMenuItem(
+                    imageAsset: 'assets/turbidez.png',
+                    buttonText: 'Turbidez',
+                  ),
+                  _buildMenuItem(
+                    imageAsset: 'assets/temperatura.png',
+                    buttonText: 'Temperatura',
+                  ),
                 ],
               ),
             ),
@@ -63,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
           if (menu == 0) {
             Navigator.pushNamed(context, '/home');
           } else if (menu == 1) {
-            Navigator.pushNamed(context, '/login');
+            Navigator.pushNamed(context, '/module');
           } else if (menu == 2) {
             Navigator.pushNamed(context, '/notifications');
           } else if (menu == 3) {
