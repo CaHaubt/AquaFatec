@@ -195,7 +195,7 @@ class _AlimentadorEditScreenState extends State<AlimentadorEditScreen> {
           size: 32.0, // Defina o tamanho do ícone
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12.0),
+          borderRadius: BorderRadius.circular(30.0),
         ),
       ),
     );
