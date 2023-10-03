@@ -62,9 +62,9 @@ class AboutScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/third_party_notices');
               },
             ),
-              ],
-            ),
+          ],
         ),
+      ),
       bottomNavigationBar: BottomNavBar(
         currentIndex: 3, // Defina o índice correto para esta tela
         onTap: (menu) {

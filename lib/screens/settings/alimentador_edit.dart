@@ -210,10 +210,12 @@ class _AlimentadorEditScreenState extends State<AlimentadorEditScreen> {
     );
   }
 
-  Widget _buildInfoBox(String label, Widget inputField, {double fontSize = 16}) {
+  Widget _buildInfoBox(String label, Widget inputField,
+      {double fontSize = 16}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
-      padding: const EdgeInsets.all(8), // Reduza o padding para alterar a altura
+      padding: const EdgeInsets.all(8),
+      // Reduza o padding para alterar a altura
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: MyColors.containerButton,
@@ -230,7 +232,8 @@ class _AlimentadorEditScreenState extends State<AlimentadorEditScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            flex: 4, // Aumente a flexibilidade do rótulo para ocupar mais espaço
+            flex: 4,
+            // Aumente a flexibilidade do rótulo para ocupar mais espaço
             child: Text(
               label,
               style: TextStyle(
@@ -242,10 +245,12 @@ class _AlimentadorEditScreenState extends State<AlimentadorEditScreen> {
           ),
           SizedBox(width: 10), // Espaço entre o rótulo e o campo de entrada
           Expanded(
-            flex: 1, // Reduza a flexibilidade do campo de entrada para ocupar menos espaço
+            flex: 1,
+            // Reduza a flexibilidade do campo de entrada para ocupar menos espaço
             child: Container(
               alignment: Alignment.centerRight,
-              child: inputField, // Use o campo de entrada passado como argumento
+              child:
+                  inputField, // Use o campo de entrada passado como argumento
             ),
           ),
         ],

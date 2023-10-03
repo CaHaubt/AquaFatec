@@ -138,7 +138,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   'Voltar para o login',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-
                   ),
                 ),
               ),

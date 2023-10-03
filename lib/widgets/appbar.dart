@@ -25,7 +25,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         alignment: Alignment.centerLeft,
         padding: const EdgeInsets.only(top: 30.0, left: 16.0),
         color: MyColors.color4,
-        child: ClipRect( // Aplicar um ClipRect ao redor do conteúdo
+        child: ClipRect(
+          // Aplicar um ClipRect ao redor do conteúdo
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -37,9 +38,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         Icons.arrow_back,
                         color: MyColors.color3,
                       ),
-                      onPressed: onBackButtonPressed ?? () {}, // Chame a função quando o botão de voltar for pressionado, ou use uma função vazia se onBackButtonPressed for nulo
+                      onPressed: onBackButtonPressed ??
+                          () {}, // Chame a função quando o botão de voltar for pressionado, ou use uma função vazia se onBackButtonPressed for nulo
                     ),
-                    SizedBox(width: 8), // Espaçamento entre o botão de voltar e o título
+                    SizedBox(width: 8),
+                    // Espaçamento entre o botão de voltar e o título
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

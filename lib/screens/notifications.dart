@@ -62,8 +62,9 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     super.initState();
     notifications = List.generate(
       10,
-          (index) {
-        final randomModuleName = moduleData.keys.elementAt(Random().nextInt(moduleData.length));
+      (index) {
+        final randomModuleName =
+            moduleData.keys.elementAt(Random().nextInt(moduleData.length));
         final moduleInfo = moduleData[randomModuleName]!;
         final options = moduleInfo['options'] as List<String>;
         final randomOptionIndex = Random().nextInt(options.length);
@@ -131,16 +132,19 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     // Verificar se a descrição contém palavras-chave e, se sim, alterar as cores
     if (description.toLowerCase().contains("valores altos") ||
         description.toLowerCase().contains("valores baixos")) {
-      moduleNameColor = MyColors.color2; // Cor para o nome do módulo se houver palavras-chave
-      iconColor = MyColors.color2; // Cor para o ícone do módulo se houver palavras-chave
+      moduleNameColor =
+          MyColors.color2; // Cor para o nome do módulo se houver palavras-chave
+      iconColor = MyColors
+          .color2; // Cor para o ícone do módulo se houver palavras-chave
     }
 
     return Container(
-      margin: const EdgeInsets.only(left: 2,bottom: 16, right: 15),
+      margin: const EdgeInsets.only(left: 2, bottom: 16, right: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         color: MyColors.containerButton,
-        boxShadow: [ // Adiciona sombra
+        boxShadow: [
+          // Adiciona sombra
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
             spreadRadius: 1,
@@ -172,7 +176,8 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     Text(
                       moduleName,
                       style: TextStyle(
-                        color: moduleNameColor, // Usar a cor para o nome do módulo
+                        color: moduleNameColor,
+                        // Usar a cor para o nome do módulo
                         fontWeight: FontWeight.bold,
                       ),
                     ),

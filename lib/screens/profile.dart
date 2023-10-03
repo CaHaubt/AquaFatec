@@ -18,7 +18,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.color4,
-      appBar: CustomAppBar(title: 'Configurações de perfil'), // Usando o novo widget AppBarWidget
+      appBar: CustomAppBar(title: 'Configurações de perfil'),
+      // Usando o novo widget AppBarWidget
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -28,11 +29,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               children: [
                 CircleAvatar(
                   radius: 40,
-                    child: Image.asset(
-                      'assets/avatar.png',
-                      width: 100, // Defina o tamanho desejado para a imagem
-                      height: 100,
-                    ),
+                  child: Image.asset(
+                    'assets/avatar.png',
+                    width: 100, // Defina o tamanho desejado para a imagem
+                    height: 100,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Column(
@@ -63,7 +64,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
                 color: MyColors.containerButton,
-                boxShadow: [ // Adiciona sombra
+                boxShadow: [
+                  // Adiciona sombra
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
                     spreadRadius: 1,
@@ -109,7 +111,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
             const SizedBox(height: 16),
-            Spacer(), // Espaço flexível para empurrar "Sair da Conta" para cima
+            Spacer(),
+            // Espaço flexível para empurrar "Sair da Conta" para cima
             _buildProfileOption(
               text: 'Ajuda e Feedback', // Novo botão
               icon: Icons.help_outline,
@@ -118,7 +121,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.pushNamed(context, '/support');
               },
             ),
-            SizedBox(height: 16), // Espaço entre "Ajuda e Feedback" e "Termos & Condições"
+            SizedBox(height: 16),
+            // Espaço entre "Ajuda e Feedback" e "Termos & Condições"
             _buildProfileOption(
               text: 'Sobre & Aviso legal',
               icon: Icons.arrow_forward,
@@ -167,7 +171,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: MyColors.containerButton,
-          boxShadow: [ // Adiciona sombra
+          boxShadow: [
+            // Adiciona sombra
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
               spreadRadius: 1,
@@ -243,7 +248,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: MyColors.color1,
-                        fixedSize: Size(110,20),
+                        fixedSize: Size(110, 20),
                       ),
                       child: const Text(
                         'Cancelar',
@@ -261,7 +266,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: MyColors.color2,
-                        fixedSize: Size(110,20),
+                        fixedSize: Size(110, 20),
                       ),
                       child: const Text(
                         'Sair',

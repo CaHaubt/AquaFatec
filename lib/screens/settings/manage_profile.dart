@@ -16,11 +16,16 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
   TextEditingController senhaController = TextEditingController();
   TextEditingController confirmarSenhaController = TextEditingController();
 
-  bool _showSenhaAtual = false; // Variável de controle para mostrar/ocultar a senha atual
-  bool _showSenhaNova = false; // Variável de controle para mostrar/ocultar a nova senha
-  bool _showConfirmarSenha = false; // Variável de controle para mostrar/ocultar a confirmação da senha
-  String nomeUsuarioAtual = 'Nome de Usuário'; // Substitua pelo nome do usuário atual
-  bool alteracoesEfetuadasComSucesso = false; // Adicionado para controlar o sucesso das alterações
+  bool _showSenhaAtual =
+      false; // Variável de controle para mostrar/ocultar a senha atual
+  bool _showSenhaNova =
+      false; // Variável de controle para mostrar/ocultar a nova senha
+  bool _showConfirmarSenha =
+      false; // Variável de controle para mostrar/ocultar a confirmação da senha
+  String nomeUsuarioAtual =
+      'Nome de Usuário'; // Substitua pelo nome do usuário atual
+  bool alteracoesEfetuadasComSucesso =
+      false; // Adicionado para controlar o sucesso das alterações
 
   @override
   void initState() {
@@ -34,7 +39,8 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
   void _updateProfile() {
     // Verifique se o campo de senha atual está vazio
     if (senhaAtualController.text.isEmpty) {
-      _showErrorDialog("Erro ao efetuar alterações", "Por favor, informe a senha atual corretamente para continuar.");
+      _showErrorDialog("Erro ao efetuar alterações",
+          "Por favor, informe a senha atual corretamente para continuar.");
       return;
     }
 
@@ -53,7 +59,8 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
       _showSuccessDialog();
     } else {
       // Se as alterações não forem bem-sucedidas, você pode mostrar uma mensagem de erro na mesma tela
-      _showErrorDialog("Erro ao efetuar alterações", "Não foi possível atualizar o perfil. Por favor, tente novamente.");
+      _showErrorDialog("Erro ao efetuar alterações",
+          "Não foi possível atualizar o perfil. Por favor, tente novamente.");
     }
   }
 
@@ -171,7 +178,8 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: MyColors.color2, // Defina a cor para MyColors.color2
+                      color:
+                          MyColors.color2, // Defina a cor para MyColors.color2
                     ),
                   ),
                 ),
@@ -215,7 +223,8 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                 controller: TextEditingController(text: nomeUsuarioAtual),
                 readOnly: true, // Torna o campo de nome somente leitura
                 style: TextStyle(
-                  color: Colors.grey, // Cor do texto do campo de nome desabilitado
+                  color:
+                      Colors.grey, // Cor do texto do campo de nome desabilitado
                 ),
                 decoration: InputDecoration(
                   labelText: 'Nome de Usuário atual (Não modificável)',
@@ -246,7 +255,8 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
               SizedBox(height: 16.0),
               TextFormField(
                 controller: senhaAtualController,
-                obscureText: !_showSenhaAtual, // Use a variável de controle correspondente
+                obscureText: !_showSenhaAtual,
+                // Use a variável de controle correspondente
                 decoration: InputDecoration(
                   labelText: 'Senha Atual',
                   border: OutlineInputBorder(
@@ -254,12 +264,14 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _showSenhaAtual ? Icons.visibility : Icons.visibility_off, // Alterna entre os ícones de olho
+                      _showSenhaAtual ? Icons.visibility : Icons.visibility_off,
+                      // Alterna entre os ícones de olho
                       color: Colors.grey, // Cor dos ícones
                     ),
                     onPressed: () {
                       setState(() {
-                        _showSenhaAtual = !_showSenhaAtual; // Alterne o estado da variável de controle
+                        _showSenhaAtual =
+                            !_showSenhaAtual; // Alterne o estado da variável de controle
                       });
                     },
                   ),
@@ -268,7 +280,8 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
               SizedBox(height: 16.0),
               TextFormField(
                 controller: senhaController,
-                obscureText: !_showSenhaNova, // Use a variável de controle correspondente
+                obscureText: !_showSenhaNova,
+                // Use a variável de controle correspondente
                 decoration: InputDecoration(
                   labelText: 'Nova Senha',
                   border: OutlineInputBorder(
@@ -276,12 +289,14 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _showSenhaNova ? Icons.visibility : Icons.visibility_off, // Alterna entre os ícones de olho
+                      _showSenhaNova ? Icons.visibility : Icons.visibility_off,
+                      // Alterna entre os ícones de olho
                       color: Colors.grey, // Cor dos ícones
                     ),
                     onPressed: () {
                       setState(() {
-                        _showSenhaNova = !_showSenhaNova; // Alterne o estado da variável de controle
+                        _showSenhaNova =
+                            !_showSenhaNova; // Alterne o estado da variável de controle
                       });
                     },
                   ),
@@ -290,7 +305,8 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
               SizedBox(height: 16.0),
               TextFormField(
                 controller: confirmarSenhaController,
-                obscureText: !_showConfirmarSenha, // Use a variável de controle correspondente
+                obscureText: !_showConfirmarSenha,
+                // Use a variável de controle correspondente
                 decoration: InputDecoration(
                   labelText: 'Confirmar Nova Senha',
                   border: OutlineInputBorder(
@@ -298,12 +314,16 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   ),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _showConfirmarSenha ? Icons.visibility : Icons.visibility_off, // Alterna entre os ícones de olho
+                      _showConfirmarSenha
+                          ? Icons.visibility
+                          : Icons
+                              .visibility_off, // Alterna entre os ícones de olho
                       color: Colors.grey, // Cor dos ícones
                     ),
                     onPressed: () {
                       setState(() {
-                        _showConfirmarSenha = !_showConfirmarSenha; // Alterne o estado da variável de controle
+                        _showConfirmarSenha =
+                            !_showConfirmarSenha; // Alterne o estado da variável de controle
                       });
                     },
                   ),

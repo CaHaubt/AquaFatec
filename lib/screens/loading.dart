@@ -26,9 +26,11 @@ class LoadingScreen extends StatelessWidget {
                 width: 200,
                 height: 200,
               ),
-              const SizedBox(height: 20.0), // Espaço entre a imagem e a animação
+              const SizedBox(height: 20.0),
+              // Espaço entre a imagem e a animação
               CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue), // Cor da animação
+                valueColor: AlwaysStoppedAnimation<Color>(
+                    Colors.blue), // Cor da animação
               ),
             ],
           ),
