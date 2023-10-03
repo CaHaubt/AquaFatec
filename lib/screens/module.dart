@@ -54,6 +54,13 @@ class _ModuleScreenState extends State<ModuleScreen> {
       lastWaterCheck = DateFormat('dd/MM/yyyy HH:mm:ss').format(currentDate);
     }
 
+    String lastOxygenCheck = '';
+
+    if (widget.moduleName == 'Nível d\'água') {
+      final currentDate = DateTime.now();
+      lastOxygenCheck = DateFormat('dd/MM/yyyy HH:mm:ss').format(currentDate);
+    }
+
     return Scaffold(
       backgroundColor: MyColors.color4,
       appBar: CustomAppBar(
@@ -117,6 +124,23 @@ class _ModuleScreenState extends State<ModuleScreen> {
               _buildInfoBox('Última leitura:', lastWaterCheck, fontSize: 16),
               _buildInfoBox('Último alerta:', '05/10/2023 14:34:12', fontSize: 16),
               _buildInfoBox('Status do bombeamento:', 'ATIVO', fontSize: 16),
+              const SizedBox(height: 16),
+            } else if (widget.moduleName == 'Oxigênio') ...
+            {
+              Hero(
+                tag: 'oxigenio_image',// Tag correspondente à imagem da tela HomeScreen
+                child: Image.asset(
+                  'assets/oxigenio_mensal.png',
+                  width: 500,
+                  height: 300,
+                  alignment: Alignment.center,
+                ),
+              ),
+              const SizedBox(height: 10),
+              _buildInfoBox('Nível de O.D.(Oxigenio Dissolvido):', '7 mg/L', fontSize: 16),
+              _buildInfoBox('Última leitura:', lastOxygenCheck, fontSize: 16),
+              _buildInfoBox('Último alerta:', '13/06/2023 05:42:35', fontSize: 16),
+              _buildInfoBox('Status do sensor:', 'ATIVO', fontSize: 16),
               const SizedBox(height: 16),
             }
           ],
