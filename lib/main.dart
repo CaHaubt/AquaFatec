@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import '/screens/register.dart';
 import '/screens/loading.dart';
 import '/screens/login.dart';
 import '/screens/home.dart';
-import '/screens/profile.dart';
+import '/screens/config.dart';
 import '/screens/welcome.dart';
 import '/screens/about.dart';
+import '/screens/register.dart';
 import '/screens/notifications.dart';
-import 'screens/settings/manage_profile.dart';
+import '/screens/settings/manage_profile.dart';
 
-void main() {
+void main() async {
   runApp(AquaFatecApp());
 }
 
@@ -22,14 +22,14 @@ class AquaFatecApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      initialRoute: '/logo',
+      initialRoute: '/loading',
       routes: {
-        '/logo': (context) => const LoadingScreen(),
+        '/loading': (context) => const LoadingScreen(),
         '/welcome': (context) => WelcomeScreen(),
         '/login': (context) => LoginScreen(),
         '/register': (context) => CadastroScreen(),
         '/home': (context) => HomeScreen(),
-        '/profile': (context) => const ProfileScreen(),
+        '/profile': (context) => ProfileScreen(),
         '/notifications': (context) => NotificationsScreen(),
         '/about': (context) => AboutScreen(),
         '/manage_profile': (context) => ManageProfileScreen(),

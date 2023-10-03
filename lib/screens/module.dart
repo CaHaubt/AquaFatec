@@ -3,7 +3,7 @@ import '/widgets/navibar.dart';
 import '/widgets/appbar.dart';
 import '/widgets/colors.dart';
 import 'package:intl/intl.dart';
-import 'settings/alimentador_edit.dart';
+import 'settings/manage_feeder.dart';
 import 'package:aquafatec/widgets/exclamationBox.dart';
 
 class ModuleScreen extends StatefulWidget {

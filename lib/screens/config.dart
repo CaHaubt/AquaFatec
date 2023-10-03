@@ -18,7 +18,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.color4,
-      appBar: CustomAppBar(title: 'Configurações de perfil'),
+      appBar: CustomAppBar(
+        title: 'Configurações',
+        subtitle: 'Detalhes sobre sua conta e perfil.',
+      ),
       // Usando o novo widget AppBarWidget
       body: Padding(
         padding: const EdgeInsets.all(16.0),

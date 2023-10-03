@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: preferredSize,
       child: Container(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.only(top: 30.0, left: 16.0),
+        padding: const EdgeInsets.only(top: 30.0, left: 16.0, bottom: 0.0),
         color: MyColors.color4,
         child: ClipRect(
           // Aplicar um ClipRect ao redor do conteúdo
