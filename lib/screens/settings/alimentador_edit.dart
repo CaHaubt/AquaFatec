@@ -116,7 +116,16 @@ class _AlimentadorEditScreenState extends State<AlimentadorEditScreen> {
         subtitle: 'Altere as configurações do seu alimentador',
         showBackButton: true, // Exibe o botão de voltar apenas nesta tela
         onBackButtonPressed: () {
-          Navigator.pushNamed(context, '/home');
+          // Redirecione para a tela ModuleScreen com o módulo "Alimentador"
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (context) => ModuleScreen(
+                moduleName: 'Alimentador',
+                quantidadeDePeixes: quantidadeController.text,
+                quantidadePorPeixe: quantidadePorPeixeController.text,
+              ),
+            ),
+          );
         },
       ),
       body: Padding(

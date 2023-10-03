@@ -59,28 +59,36 @@ class _ModuleScreenState extends State<ModuleScreen> {
           Navigator.pushNamed(context, '/home');
         },
       ),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (widget.moduleName == 'pH') ...{
-              Image.asset(
-                'assets/grafico.png',
-                width: double.infinity,
-                height: 200,
-                alignment: Alignment.center,
+              Hero(
+                tag: 'ph_image', // Tag correspondente à imagem da tela HomeScreen
+                child: Image.asset(
+                  'assets/grafico.png',
+                  width: double.infinity,
+                  height: 250,
+                  alignment: Alignment.center,
+                ),
               ),
               const SizedBox(height: 10),
               _buildInfoBox('Última leitura:', formattedDate, fontSize: 16),
               _buildInfoBox('Valor da leitura:', '7,8', fontSize: 16),
               _buildInfoBox('Status do sensor:', 'ATIVO', fontSize: 16),
             } else if (widget.moduleName == 'Alimentador') ...
-            {Image.asset(
-              'assets/arraçoamento.png',
-              width: double.infinity,
-              height: 200,
-              alignment: Alignment.center,
+            {
+              Hero(
+                tag: 'alimentador_image', // Tag correspondente à imagem da tela HomeScreen
+                child: Image.asset(
+                  'assets/arraçoamento.png',
+                  fit: BoxFit.fill,
+                  width: double.infinity,
+                  height: 300,
+                  alignment: Alignment.center,
+                ),
               ),
               const SizedBox(height: 10),
               _buildInfoBox('Quantidade de peixes:', widget.quantidadeDePeixes, fontSize: 16),

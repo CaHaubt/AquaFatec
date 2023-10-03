@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import '/widgets/colors.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController passwordController = TextEditingController();
+  bool showPassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView( // Envolve o Column com SingleChildScrollView
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 20.0), // Reduzindo o espaçamento aqui
+              SizedBox(height: 20.0),
               Image.asset(
                 'assets/logo.png',
                 width: 120,
@@ -47,11 +55,23 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
-                obscureText: true,
+                controller: passwordController,
+                obscureText: !showPassword,
                 decoration: InputDecoration(
                   labelText: 'Senha',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
+                  ),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      showPassword ? Icons.visibility : Icons.visibility_off,
+                      color: MyColors.color1,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                      });
+                    },
                   ),
                 ),
               ),
@@ -68,7 +88,7 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home'); // Alterado para '/home'
+                  Navigator.pushNamed(context, '/home');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: MyColors.color3,
@@ -90,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                 'ou',
                 style: TextStyle(
                   fontSize: 16.0,
-                  color: MyColors.color2,
+                  color: MyColors.color1,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -100,7 +120,8 @@ class LoginScreen extends StatelessWidget {
                   // Ação para "Login com o Google"
                 },
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: MyColors.color2, shape: RoundedRectangleBorder(
+                  foregroundColor: MyColors.color2,
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
@@ -113,9 +134,10 @@ class LoginScreen extends StatelessWidget {
                   // Ação para "Login com o Facebook"
                 },
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: MyColors.color2, shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.0),
-                ),
+                  foregroundColor: MyColors.color2,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                 ),
                 child: const Text('Login com o Facebook'),
@@ -123,7 +145,7 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 32.0),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/register'); // Alterado para '/register'
+                  Navigator.pushNamed(context, '/register');
                 },
                 style: TextButton.styleFrom(
                   foregroundColor: MyColors.color1,

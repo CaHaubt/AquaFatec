@@ -31,7 +31,8 @@ dependencies:
   shared_preferences: ^2.0.12
   flutter:
     sdk: flutter
-  intl: ^0.17.0
+  intl: ^0.18.1
+  responsive_builder: ^0.7.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -41,6 +42,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

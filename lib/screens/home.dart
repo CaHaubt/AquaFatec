@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 15),
             Expanded(
               child: GridView.count(
                 crossAxisCount: 2,
@@ -53,7 +53,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   _buildMenuItem(
                     imageAsset: 'assets/nivelAgua.png',
-                    buttonText: 'Nivel d água',
+                    buttonText: 'Nível d\'água',
                   ),
                   _buildMenuItem(
                     imageAsset: 'assets/oxigenio.png',
@@ -101,45 +101,45 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         _navigateToModule(context, buttonText);
       },
-      child: InkResponse(
-        onTap: () {
-          _navigateToModule(context, buttonText);
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: MyColors.containerButton,
-            borderRadius: BorderRadius.circular(16.0),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: Offset(0, 2),
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Hero(
-                tag: buttonText,
-                child: Image.asset(
+      child: Hero(
+        tag: buttonText, // Usando buttonText como tag para a animação Hero
+        child: InkResponse(
+          onTap: () {
+            _navigateToModule(context, buttonText);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: MyColors.containerButton,
+              borderRadius: BorderRadius.circular(16.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.2),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
                   imageAsset,
                   width: 80,
                   height: 80,
                 ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                buttonText,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: MyColors.color3,
+                const SizedBox(height: 10),
+                Text(
+                  buttonText,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: MyColors.color3,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -15,7 +15,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(65.0);
+  Size get preferredSize => const Size.fromHeight(80.0);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: preferredSize,
       child: Container(
         alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.only(top: 40.0, left: 16.0),
+        padding: const EdgeInsets.only(top: 30.0, left: 16.0),
         color: MyColors.color4,
         child: ClipRect( // Aplicar um ClipRect ao redor do conteúdo
           child: Column(
