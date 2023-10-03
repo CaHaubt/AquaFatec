@@ -21,8 +21,6 @@ class ModuleScreen extends StatefulWidget {
 }
 
 class _ModuleScreenState extends State<ModuleScreen> {
-  String formattedDate = '';
-
   TextEditingController quantidadeController = TextEditingController();
   TextEditingController quantidadePorPeixeController = TextEditingController();
 
@@ -49,6 +47,13 @@ class _ModuleScreenState extends State<ModuleScreen> {
       lastFeedingDate = DateFormat('dd/MM/yyyy HH:mm:ss').format(currentDate);
     }
 
+    String lastWaterCheck = '';
+
+    if (widget.moduleName == 'Nível d\'água') {
+      final currentDate = DateTime.now();
+      lastWaterCheck = DateFormat('dd/MM/yyyy HH:mm:ss').format(currentDate);
+    }
+
     return Scaffold(
       backgroundColor: MyColors.color4,
       appBar: CustomAppBar(
@@ -68,7 +73,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
               Hero(
                 tag: 'ph_image', // Tag correspondente à imagem da tela HomeScreen
                 child: Image.asset(
-                  'assets/grafico.png',
+                  'assets/ph_mensal.png',
                   width: double.infinity,
                   height: 250,
                   alignment: Alignment.center,
@@ -83,7 +88,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
               Hero(
                 tag: 'alimentador_image', // Tag correspondente à imagem da tela HomeScreen
                 child: Image.asset(
-                  'assets/arraçoamento.png',
+                  'assets/arraçoamento_mensal.png',
                   fit: BoxFit.fill,
                   width: double.infinity,
                   height: 300,
@@ -96,7 +101,24 @@ class _ModuleScreenState extends State<ModuleScreen> {
               _buildInfoBox('Último arraçoamento:', lastFeedingDate, fontSize: 16),
               _buildInfoBox('Status do alimentador:', 'ATIVO', fontSize: 16),
               const SizedBox(height: 16),
-            },
+            } else if (widget.moduleName == 'Nível d\'água') ...
+            {
+              Hero(
+                tag: 'nivelAgua_image',// Tag correspondente à imagem da tela HomeScreen
+                child: Image.asset(
+                  'assets/niveldagua_mensal.png',
+                  width: 500,
+                  height: 300,
+                  alignment: Alignment.center,
+                ),
+              ),
+              const SizedBox(height: 10),
+              _buildInfoBox('Nível d\'água atual no container:', '83%', fontSize: 16),
+              _buildInfoBox('Última leitura:', lastWaterCheck, fontSize: 16),
+              _buildInfoBox('Último alerta:', '05/10/2023 14:34:12', fontSize: 16),
+              _buildInfoBox('Status do bombeamento:', 'ATIVO', fontSize: 16),
+              const SizedBox(height: 16),
+            }
           ],
         ),
       ),
@@ -116,25 +138,25 @@ class _ModuleScreenState extends State<ModuleScreen> {
       ),
       floatingActionButton: widget.moduleName == 'Alimentador'
           ? FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => AlimentadorEditScreen(
-                quantidadeDePeixesAtual: widget.quantidadeDePeixes,
-                quantidadePorPeixeAtual: widget.quantidadePorPeixe,
-              ),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => AlimentadorEditScreen(
+                    quantidadeDePeixesAtual: widget.quantidadeDePeixes,
+                    quantidadePorPeixeAtual: widget.quantidadePorPeixe,
+                  ),
+                ),
+              );
+            },
+            backgroundColor: MyColors.containerButton,
+            child: Icon(
+              Icons.edit,
+              color: MyColors.color3,
             ),
-          );
-        },
-        backgroundColor: MyColors.containerButton,
-        child: Icon(
-          Icons.edit,
-          color: MyColors.color3,
-        ),
-      )
-          : null,
-    );
-  }
+          )
+              : null,
+        );
+      }
 
   Widget _buildInfoBox(String label, String value, {double fontSize = 16}) {
     return Container(

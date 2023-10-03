@@ -64,8 +64,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/arraçoamento.png
-    - assets/grafico.png
+    - assets/niveldagua_mensal.png
+    - assets/arraçoamento_mensal.png
+    - assets/ph_mensal.png
     - assets/avatar.png
     - assets/logo.png
     - assets/mao.png
