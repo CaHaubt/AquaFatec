@@ -77,7 +77,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
               _buildInfoBox('Status do sensor:', 'ATIVO', fontSize: 16),
             } else if (widget.moduleName == 'Alimentador') ...
             {Image.asset(
-              'assets/grafico.png',
+              'assets/arraçoamento.png',
               width: double.infinity,
               height: 200,
               alignment: Alignment.center,
