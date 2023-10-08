@@ -86,6 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                      color: MyColors.dialogText,
                     ),
                   ),
                   Switch(

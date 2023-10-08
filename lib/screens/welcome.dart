@@ -13,13 +13,6 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/mao.png',
-              fit: BoxFit.fill,
-              width: double.infinity,
-              height: 300, // Defina a altura desejada para a imagem
-            ),
-            const SizedBox(height: 40),
             Text(
               'Bem-vindo ao AquaFatec',
               style: TextStyle(
@@ -28,13 +21,20 @@ class WelcomeScreen extends StatelessWidget {
                 color: MyColors.color3,
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 40),
+            Image.asset(
+              'assets/mao.png',
+              fit: BoxFit.fill,
+              width: double.infinity,
+              height: 300, // Defina a altura desejada para a imagem
+            ),
+            const SizedBox(height: 40),
             Text(
               'O monitoramento da aquaponia na palma da sua mão.',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 18,
-                color: MyColors.color2,
+                color: MyColors.color1,
               ),
             ),
             const SizedBox(height: 40),

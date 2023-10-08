@@ -9,6 +9,7 @@ import '/screens/register.dart';
 import '/screens/notifications.dart';
 import '/screens/settings/manage_profile.dart';
 
+
 void main() async {
   runApp(AquaFatecApp());
 }

@@ -5,6 +5,9 @@ import '/widgets/colors.dart';
 import 'package:intl/intl.dart';
 import 'settings/manage_feeder.dart';
 import 'package:aquafatec/widgets/exclamationBox.dart';
+import 'package:aquafatec/conexao_mqtt.dart';
+
+
 
 class ModuleScreen extends StatefulWidget {
   final String moduleName;
@@ -25,11 +28,13 @@ class _ModuleScreenState extends State<ModuleScreen> {
   TextEditingController quantidadeController = TextEditingController();
   TextEditingController quantidadePorPeixeController = TextEditingController();
 
+  MqttHandler mqttHandler = MqttHandler();
+
   @override
   void initState() {
-    super.initState();
     quantidadeController.text = widget.quantidadeDePeixes;
     quantidadePorPeixeController.text = widget.quantidadePorPeixe;
+    mqttHandler.connect();
   }
 
   @override
@@ -65,6 +70,13 @@ class _ModuleScreenState extends State<ModuleScreen> {
     String lastNTUCheck = '';
 
     if (widget.moduleName == 'Turbidez') {
+      final currentDate = DateTime.now();
+      lastNTUCheck = DateFormat('dd/MM/yyyy HH:mm:ss').format(currentDate);
+    }
+
+    String lastTemperatureCheck = '';
+
+    if (widget.moduleName == 'Temperatura') {
       final currentDate = DateTime.now();
       lastNTUCheck = DateFormat('dd/MM/yyyy HH:mm:ss').format(currentDate);
     }
@@ -187,6 +199,21 @@ class _ModuleScreenState extends State<ModuleScreen> {
                   fontSize: 16),
               _buildInfoBox('Status do sensor:', 'ATIVO', fontSize: 16),
               const SizedBox(height: 16),
+            }else if (widget.moduleName == 'Temperatura') ...{
+              Hero(
+                tag: 'ph_image',
+                // Tag correspondente à imagem da tela HomeScreen
+                child: Image.asset(
+                  'assets/ph_mensal.png',
+                  width: double.infinity,
+                  height: 250,
+                  alignment: Alignment.center,
+                ),
+              ),
+              const SizedBox(height: 10),
+              _buildInfoBox('Última leitura:', formattedDate, fontSize: 16),
+              _buildInfoBox('Valor da leitura:', '', fontSize: 16, notifier: true ),
+              _buildInfoBox('Status do sensor:', 'ATIVO', fontSize: 16),
             }
           ],
         ),
@@ -227,7 +254,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
     );
   }
 
-  Widget _buildInfoBox(String label, String value, {double fontSize = 16}) {
+  Widget _buildInfoBox(String label, String value, {double fontSize = 16, bool notifier = false}) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       padding: const EdgeInsets.all(16),
@@ -254,6 +281,17 @@ class _ModuleScreenState extends State<ModuleScreen> {
               color: MyColors.color3,
             ),
           ),
+          notifier ? //ternario para valor mqtt
+              ValueListenableBuilder(valueListenable: mqttHandler.data,
+                  builder: (context, value, child){
+                  return Text(value.toString(),
+                    style: TextStyle(
+                    fontSize: fontSize,
+                    fontWeight: FontWeight.bold,
+                    color: MyColors.color3,
+                  ),);
+
+              }):
           Text(
             value,
             style: TextStyle(
