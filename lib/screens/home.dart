@@ -13,14 +13,19 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // pega o tamanho da tela (altura)
+    double deviceHeight = MediaQuery.of(context).size.height;
+    // tamanho do botao com base na altura da tela
+    double childrenAspectRatioBasedOnScreenHeight = deviceHeight > 720 ? 1 : 1.1;
+    // tamanho da imagem com base na altura da tela
+    double childrenAssetSizeBasedOnScreenHeight= deviceHeight > 720 ? 80 : 48;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(26.0),
-        child: Column(
+      body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            SizedBox(height: 15.0),
+            const SizedBox(height: 16.0),
             Image.asset(
               'assets/logo.png',
               width: 120,
@@ -36,9 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 16),
             Expanded(
+              flex: 3,
               child: GridView.count(
+                padding: const EdgeInsets.all(24.0),
+                childAspectRatio: childrenAspectRatioBasedOnScreenHeight,
                 crossAxisCount: 2,
                 mainAxisSpacing: 16.0,
                 crossAxisSpacing: 16.0,
@@ -46,32 +54,37 @@ class _HomeScreenState extends State<HomeScreen> {
                   _buildMenuItem(
                     imageAsset: 'assets/ph.png',
                     buttonText: 'pH',
+                    menuItemAssetSize: childrenAssetSizeBasedOnScreenHeight
                   ),
                   _buildMenuItem(
                     imageAsset: 'assets/alimentador.png',
                     buttonText: 'Alimentador',
+                    menuItemAssetSize: childrenAssetSizeBasedOnScreenHeight
                   ),
                   _buildMenuItem(
                     imageAsset: 'assets/nivelAgua.png',
                     buttonText: 'Nível d\'água',
+                    menuItemAssetSize: childrenAssetSizeBasedOnScreenHeight
                   ),
                   _buildMenuItem(
                     imageAsset: 'assets/oxigenio.png',
                     buttonText: 'Oxigênio',
+                    menuItemAssetSize: childrenAssetSizeBasedOnScreenHeight
                   ),
                   _buildMenuItem(
                     imageAsset: 'assets/turbidez.png',
                     buttonText: 'Turbidez',
+                    menuItemAssetSize: childrenAssetSizeBasedOnScreenHeight
                   ),
                   _buildMenuItem(
                     imageAsset: 'assets/temperatura.png',
                     buttonText: 'Temperatura',
+                    menuItemAssetSize: childrenAssetSizeBasedOnScreenHeight
                   ),
                 ],
               ),
             ),
-          ],
-        ),
+          ]
       ),
       bottomNavigationBar: BottomNavBar(
         currentIndex: _currentIndex,
@@ -96,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildMenuItem({
     required String imageAsset,
     required String buttonText,
+    required double menuItemAssetSize,
   }) {
     return InkWell(
       onTap: () {
@@ -116,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.black.withOpacity(0.2),
                   spreadRadius: 1,
                   blurRadius: 2,
-                  offset: Offset(0, 2),
+                  offset: const Offset(0, 2),
                 ),
               ],
             ),
@@ -125,14 +139,14 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Image.asset(
                   imageAsset,
-                  width: 80,
-                  height: 80,
+                  width: menuItemAssetSize,
+                  height: menuItemAssetSize,
                 ),
                 const SizedBox(height: 10),
                 Text(
                   buttonText,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: MyColors.color3,

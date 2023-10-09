@@ -78,7 +78,7 @@ class _ModuleScreenState extends State<ModuleScreen> {
 
     if (widget.moduleName == 'Temperatura') {
       final currentDate = DateTime.now();
-      lastNTUCheck = DateFormat('dd/MM/yyyy HH:mm:ss').format(currentDate);
+      lastTemperatureCheck = DateFormat('dd/MM/yyyy HH:mm:ss').format(currentDate);
     }
 
     return Scaffold(
