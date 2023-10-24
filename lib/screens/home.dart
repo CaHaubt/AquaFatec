@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '/widgets/navibar.dart';
 import '/widgets/colors.dart';
-import '/screens/module.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ]
-      ),
+        ),
       bottomNavigationBar: BottomNavBar(
         currentIndex: _currentIndex,
         onTap: (menu) {
@@ -113,13 +113,37 @@ class _HomeScreenState extends State<HomeScreen> {
   }) {
     return InkWell(
       onTap: () {
-        _navigateToModule(context, buttonText);
+        if (buttonText == 'pH') {
+          Navigator.pushNamed(context, '/phPage');
+        } else if (buttonText == 'Alimentador') {
+          Navigator.pushNamed(context, '/alimentador');
+        } else if (buttonText == 'Nível d\'água') {
+          Navigator.pushNamed(context, '/nivelAgua');
+        } else if (buttonText == 'Oxigênio') {
+          Navigator.pushNamed(context, '/oxigenio');
+        } else if (buttonText == 'Turbidez') {
+          Navigator.pushNamed(context, '/turbidezPage');
+        } else if (buttonText == 'Temperatura') {
+          Navigator.pushNamed(context, '/temperaturePage');
+        }
       },
       child: Hero(
-        tag: buttonText, // Usando buttonText como tag para a animação Hero
+        tag: buttonText,
         child: InkResponse(
           onTap: () {
-            _navigateToModule(context, buttonText);
+            if (buttonText == 'ph') {
+              Navigator.pushNamed(context, '/phPage');
+            } else if (buttonText == 'Alimentador') {
+              Navigator.pushNamed(context, '/alimentador');
+            } else if (buttonText == 'Nível d\'água') {
+              Navigator.pushNamed(context, '/nivelAgua');
+            } else if (buttonText == 'Oxigênio') {
+              Navigator.pushNamed(context, '/oxigenio');
+            } else if (buttonText == 'Turbidez') {
+              Navigator.pushNamed(context, '/turbidezPage');
+            } else if (buttonText == 'Temperatura') {
+              Navigator.pushNamed(context, '/temperaturePage');
+            }
           },
           child: Container(
             decoration: BoxDecoration(
@@ -156,16 +180,6 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  void _navigateToModule(BuildContext context, String buttonText) {
-    // Navegue para a tela de módulo correspondente
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ModuleScreen(moduleName: buttonText),
       ),
     );
   }

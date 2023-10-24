@@ -8,6 +8,9 @@ import '/screens/about.dart';
 import '/screens/register.dart';
 import '/screens/notifications.dart';
 import '/screens/settings/manage_profile.dart';
+// import '/screens/phPage.dart';
+import '/screens/temperaturePage.dart';
+// import '/screens/turbidezPage.dart';
 
 
 void main() async {
@@ -34,6 +37,9 @@ class AquaFatecApp extends StatelessWidget {
         '/notifications': (context) => NotificationsScreen(),
         '/about': (context) => AboutScreen(),
         '/manage_profile': (context) => ManageProfileScreen(),
+        '/temperaturePage': (context) => TemperatureScreen(),
+        // '/phPage': (context) => PHScreen(),
+        // '/turbidezPage': (context) => TurbidezScreen(),
       },
     );
   }

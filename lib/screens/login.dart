@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 12.0),
               Text(
-                'Estamos felizes em tê-lo de volta!',
+                'Sistema de gerenciamento de Aquaponia!',
                 style: TextStyle(
                   fontSize: 20.0,
                   fontWeight: FontWeight.bold,
@@ -38,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 5.0),
               Text(
-                'Você pode prosseguir de onde parou efetuando o login.',
+                'Efetue o login para prosseguir:',
                 style: TextStyle(
                   fontSize: 14.0,
                   color: MyColors.color1,

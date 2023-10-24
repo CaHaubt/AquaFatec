@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '/widgets/navibar.dart';
 import '/widgets/appbar.dart';
 import '/widgets/colors.dart';
-import 'package:aquafatec/screens/module.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AlimentadorEditScreen extends StatefulWidget {
