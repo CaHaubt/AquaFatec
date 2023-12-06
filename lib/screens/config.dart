@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '/widgets/navibar.dart';
 import '/widgets/appBar.dart';
 import '/widgets/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '/services/auth.dart';
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -14,6 +17,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int _currentIndex = 3;
   bool notificationsEnabled = true;
 
+  final AuthService _authService = AuthService();
+
+  late User _user; // Adicionado para armazenar informações do usuário
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserProfile(); // Carrega as informações do usuário ao iniciar a tela
+  }
+
+  Future<void> _loadUserProfile() async {
+    User? user = _authService.getCurrentUser();
+    if (user != null) {
+      setState(() {
+        _user = user;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +44,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: 'Configurações',
         subtitle: 'Detalhes sobre sua conta e perfil.',
       ),
-      // Usando o novo widget AppBarWidget
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -34,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   radius: 40,
                   child: Image.asset(
                     'assets/avatar.png',
-                    width: 100, // Defina o tamanho desejado para a imagem
+                    width: 100,
                     height: 100,
                   ),
                 ),
@@ -43,15 +64,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Nome do Usuário',
+                      _user.displayName ?? 'Nome do Usuário',
                       style: TextStyle(
-                        fontSize: 20, // Tamanho da fonte reduzido em 2
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: MyColors.color3,
                       ),
                     ),
                     Text(
-                      'email@exemplo.com',
+                      _user.email ?? 'email@exemplo.com',
                       style: TextStyle(
                         fontSize: 16,
                         color: Colors.grey[600],
@@ -68,7 +89,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(12),
                 color: MyColors.containerButton,
                 boxShadow: [
-                  // Adiciona sombra
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
                     spreadRadius: 1,
@@ -95,7 +115,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       setState(() {
                         notificationsEnabled = value;
                       });
-                      // Implemente a lógica para ativar/desativar notificações aqui
                     },
                     activeTrackColor: MyColors.color3,
                     inactiveTrackColor: MyColors.offToggle,
@@ -107,31 +126,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             const SizedBox(height: 16),
             _buildProfileOption(
-              text: 'Gerenciar Perfil', // Alterado o texto
+              text: 'Gerenciar Perfil',
               icon: Icons.arrow_forward,
               onTap: () {
-                // Implemente a navegação para a tela de Gerenciar Perfil aqui
                 Navigator.pushNamed(context, '/manage_profile');
               },
             ),
             const SizedBox(height: 16),
             Spacer(),
-            // Espaço flexível para empurrar "Sair da Conta" para cima
             _buildProfileOption(
-              text: 'Ajuda e Feedback', // Novo botão
+              text: 'Ajuda e Feedback',
               icon: Icons.help_outline,
               onTap: () {
-                // Implemente a navegação para a tela de Suporte aqui
                 Navigator.pushNamed(context, '/support');
               },
             ),
             SizedBox(height: 16),
-            // Espaço entre "Ajuda e Feedback" e "Termos & Condições"
             _buildProfileOption(
               text: 'Sobre & Aviso legal',
               icon: Icons.arrow_forward,
               onTap: () {
-                // Implemente a navegação para a tela de Termos & Condições aqui
                 Navigator.pushNamed(context, '/about');
               },
             ),
@@ -176,7 +190,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           borderRadius: BorderRadius.circular(12),
           color: MyColors.containerButton,
           boxShadow: [
-            // Adiciona sombra
             BoxShadow(
               color: Colors.black.withOpacity(0.2),
               spreadRadius: 1,
