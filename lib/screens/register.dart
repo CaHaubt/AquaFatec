@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:aquafatec/widgets/colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '/services/auth.dart';
+import '/widgets/colors.dart';
 
 class CadastroScreen extends StatefulWidget {
   @override
@@ -23,6 +25,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
   final GlobalKey<FormFieldState<String>> _passwordKey = GlobalKey<FormFieldState<String>>();
   final GlobalKey<FormFieldState<String>> _confirmPasswordKey = GlobalKey<FormFieldState<String>>();
 
+  final AuthService _authService = AuthService();
+
   Future<void> _showCustomDialog(BuildContext context, String title, String content) async {
     return showDialog<void>(
       context: context,
@@ -36,7 +40,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(5),
-              color: MyColors.color4, // Coloque aqui a cor desejada
+              color: MyColors.color4,
             ),
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -47,7 +51,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
-                    color: MyColors.color3, // Coloque aqui a cor desejada
+                    color: MyColors.color3,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -65,7 +69,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: MyColors.color3, // Coloque aqui a cor desejada
+                    backgroundColor: MyColors.color3,
                     fixedSize: Size(110, 20),
                   ),
                   child: const Text(
@@ -73,7 +77,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white, // Coloque aqui a cor desejada
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -166,7 +170,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         suffixIcon: IconButton(
                           icon: Icon(
                             showPassword ? Icons.visibility : Icons.visibility_off,
-                            color: MyColors.color1, // Coloque aqui a cor desejada
+                            color: MyColors.color1,
                           ),
                           onPressed: () {
                             setState(() {
@@ -196,7 +200,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         suffixIcon: IconButton(
                           icon: Icon(
                             showPassword ? Icons.visibility : Icons.visibility_off,
-                            color: MyColors.color1, // Coloque aqui a cor desejada
+                            color: MyColors.color1,
                           ),
                           onPressed: () {
                             setState(() {
@@ -237,13 +241,23 @@ class _CadastroScreenState extends State<CadastroScreen> {
                             final password = passwordController.text;
                             final confirmPassword = confirmPasswordController.text;
 
-                            await _showCustomDialog(
-                              context,
-                              'Cadastro realizado com sucesso',
-                              'Pressione "OK" para continuar.',
-                            );
+                            User? user = await _authService.signUp(username, email, password);
 
-                            Navigator.of(context).pushReplacementNamed('/login');
+                            if (user != null) {
+                              await _showCustomDialog(
+                                context,
+                                'Cadastro realizado com sucesso',
+                                'Pressione "OK" para continuar.',
+                              );
+
+                              Navigator.of(context).pushReplacementNamed('/login');
+                            } else {
+                              await _showCustomDialog(
+                                context,
+                                'Erro',
+                                'Ocorreu um erro durante o cadastro.\nPor favor, tente novamente.',
+                              );
+                            }
                           } else {
                             setState(() {
                               passwordError = true;
@@ -258,7 +272,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           }
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: MyColors.color3, // Coloque aqui a cor desejada
+                          backgroundColor: MyColors.color3,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
@@ -269,7 +283,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white, // Coloque aqui a cor desejada
+                            color: Colors.white,
                           ),
                         ),
                       ),
@@ -280,7 +294,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         Navigator.pushNamed(context, '/login');
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor: MyColors.color1, // Coloque aqui a cor desejada
+                        foregroundColor: MyColors.color1,
                       ),
                       child: Text(
                         'Voltar para o login',

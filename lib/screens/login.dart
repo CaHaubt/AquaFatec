@@ -1,9 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '/widgets/colors.dart';
-import 'package:aquafatec/firebase_options.dart';
-
+import '/services/auth.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -11,15 +8,76 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController email = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool showPassword = false;
-  late FirebaseAuth _auth;
-  late FirebaseApp app;
+
+  final AuthService _authService = AuthService();
+
+  Future<void> _showCustomDialog(BuildContext context, String title, String content) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: MyColors.color4,
+            ),
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.bold,
+                    color: MyColors.color3,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  content,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: MyColors.offToggle,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: MyColors.color3,
+                    fixedSize: Size(110, 20),
+                  ),
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    _initFirebase();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -54,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 32.0),
               TextFormField(
-                controller: email,
+                controller: emailController,
                 decoration: InputDecoration(
                   labelText: 'Endereço de E-mail',
                   border: OutlineInputBorder(
@@ -85,23 +143,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              TextButton(
-                onPressed: () {
-                  // Ação para "Esqueceu sua senha?"
-                },
-                style: TextButton.styleFrom(
-                  foregroundColor: MyColors.color2,
-                ),
-                child: const Text('Esqueceu sua senha?'),
-              ),
-              const SizedBox(height: 16.0),
               ElevatedButton(
-                onPressed: () {
-                  _authenticate();
-                  // Navigator.pushNamed(context, '/home');
+                onPressed: () async {
+                  String email = emailController.text;
+                  String password = passwordController.text;
+                  dynamic result = await _authService.signIn(email, password);
+
+                  if (result != null) {
+                    Navigator.pushNamed(context, '/home');
+                  } else {
+                    _showCustomDialog(
+                      context,
+                      'Erro de Login',
+                      'E-mail ou senha incorretos. Por favor, tente novamente.',
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: MyColors.color3,
+                  primary: MyColors.color3,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
@@ -116,43 +175,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              Text(
-                'ou',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: MyColors.color1,
+              TextButton(
+                onPressed: () {
+                  // Ação para "Esqueceu sua senha?"
+                },
+                style: TextButton.styleFrom(
+                  foregroundColor: MyColors.color2,
                 ),
-                textAlign: TextAlign.center,
+                child: const Text('Esqueceu sua senha?'),
               ),
               const SizedBox(height: 16.0),
-              OutlinedButton(
-                onPressed: () {
-                  // Ação para "Login com o Google"
-                },
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: MyColors.color2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                ),
-                child: const Text('Login com o Google'),
-              ),
-              const SizedBox(height: 16.0),
-              OutlinedButton(
-                onPressed: () {
-                  // Ação para "Login com o Facebook"
-                },
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: MyColors.color2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                ),
-                child: const Text('Login com o Facebook'),
-              ),
-              const SizedBox(height: 32.0),
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/register');
@@ -167,44 +199,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-
-  }
-
-  Future <void> _initFirebase() async {
-    FirebaseApp app = await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    print('Initialized default app $app');
-    //await Firebase.initializeApp();
-    /*if (Firebase.initializeApp() == null){
-      print("erro ao conectar");
-    } else {
-      print ("parabéns");
-    }*/
-    _auth = FirebaseAuth.instance;
-  }
-
-  Future <void> _authenticate() async{
-    UserCredential userCredential;
-    userCredential  = await _auth.signInWithEmailAndPassword(
-      //Passa email e senha para o Firebase, verificando se está cadastrado
-        email: "carolina.salvador@fatec.sp.gov.br",
-        password: "123456"
-
-    );
-    try{
-      print(userCredential.toString());
-      print("Conectado");
-
-      Navigator.pushNamed(context, '/home');
-    } catch(e) {
-      print("E-mail ou senha incorretos: $e");
-      print(email);
-      print(passwordController);
-
-    }
-    setState((){
-
-    });
   }
 }
