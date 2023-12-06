@@ -1,22 +1,24 @@
 import 'package:aquafatec/screens/settings/mqtt_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
-import '../widgets/appBar.dart';
+import '../widgets/appbarAdd.dart';
 import '../widgets/colors.dart';
 import '../widgets/navibar.dart';
-import 'package:intl/intl.dart';
+// import 'package:intl/intl.dart';
 
-class PHScreen extends StatefulWidget {
-  const PHScreen({Key? key}) : super(key: key);
+
+class AlimentadorScreen extends StatefulWidget {
+  const AlimentadorScreen({Key? key}) : super(key: key);
+
 
   @override
-  State<PHScreen> createState() => _PHScreenState();
+  State<AlimentadorScreen> createState() => _AlimentadorScreenState();
 }
 
-class _PHScreenState extends State<PHScreen> {
+class _AlimentadorScreenState extends State<AlimentadorScreen> {
   MQTTClientManager mqttClientManager = MQTTClientManager();
-  final String pubTopic = "aquafatec/tanque1/ph";
-  String phValue = 'null';
+  final String pubTopic = "aquafatec/tanque1/alimentador";
+   String feeder = "null";
 
   @override
   void initState() {
@@ -27,36 +29,29 @@ class _PHScreenState extends State<PHScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateFormat('dd/MM/yyyy HH:mm:ss').format(DateTime.now());
-
     return Scaffold(
       backgroundColor: MyColors.color4,
-      appBar: CustomAppBar(
-        title: 'pH',
-        subtitle: 'Confira detalhes do seu dispositivo',
+      appBar: CustomAppBarAdd(
+        title: 'Alimentador',
+        subtitle: 'Escolha um alimentador',
         showBackButton: true, // Exibe o botão de voltar apenas nesta tela
         onBackButtonPressed: () {
           Navigator.pushNamed(context, '/home');
         },
-      ),
+
+        ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Hero(
-              tag: 'ph_image',
-              child: Image.asset(
-                'assets/ph_mensal.png',
-                width: double.infinity,
-                height: 250,
-                alignment: Alignment.center,
-              ),
+            _buildFeederOption(
+              text: 'Alimentador 1',
+              icon: Icons.arrow_forward,
+              onTap: () {
+                Navigator.pushNamed(context, '/#');
+              },
             ),
-            const SizedBox(height: 10),
-            _buildInfoBox('Última leitura:', formattedDate, fontSize: 16),
-            _buildInfoBox('Valor da leitura:', phValue, fontSize: 16),
-            _buildInfoBox('Status do sensor:', 'ATIVO', fontSize: 16),
           ],
         ),
       ),
@@ -76,34 +71,45 @@ class _PHScreenState extends State<PHScreen> {
       ),
     );
   }
-  Widget _buildInfoBox(String label, String value, {double fontSize = 16}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: MyColors.containerButton,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 2,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold,
+
+  Widget _buildFeederOption({
+    required String text,
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: MyColors.containerButton,
+          boxShadow: [
+            // Adiciona sombra
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 2,
+              offset: Offset(0, 2),
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Icon(
+              icon,
               color: MyColors.color3,
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -121,13 +127,10 @@ class _PHScreenState extends State<PHScreen> {
       final pt =
       MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
       setState(() {
-        phValue = '${pt} ºC';
+        feeder = '${pt} ºC';
       });
       //print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n ');
     });
   }
 
-
 }
-
-

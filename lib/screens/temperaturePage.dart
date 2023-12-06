@@ -1,7 +1,7 @@
 import 'package:aquafatec/screens/settings/mqtt_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
-import '../widgets/appbar.dart';
+import '../widgets/appBar.dart';
 import '../widgets/colors.dart';
 import '../widgets/navibar.dart';
 import 'package:intl/intl.dart';

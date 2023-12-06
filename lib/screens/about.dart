@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/widgets/appbar.dart';
+import '/widgets/appBar.dart';
 import '/widgets/colors.dart';
 import '/widgets/navibar.dart';
 

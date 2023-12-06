@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '/widgets/colors.dart';
+import 'package:aquafatec/firebase_options.dart';
+
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -7,11 +11,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController email = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool showPassword = false;
+  late FirebaseAuth _auth;
+  late FirebaseApp app;
 
   @override
   Widget build(BuildContext context) {
+    _initFirebase();
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -46,6 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 32.0),
               TextFormField(
+                controller: email,
                 decoration: InputDecoration(
                   labelText: 'Endereço de E-mail',
                   border: OutlineInputBorder(
@@ -88,7 +97,8 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, '/home');
+                  _authenticate();
+                  // Navigator.pushNamed(context, '/home');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: MyColors.color3,
@@ -157,5 +167,44 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+
+  }
+
+  Future <void> _initFirebase() async {
+    FirebaseApp app = await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('Initialized default app $app');
+    //await Firebase.initializeApp();
+    /*if (Firebase.initializeApp() == null){
+      print("erro ao conectar");
+    } else {
+      print ("parabéns");
+    }*/
+    _auth = FirebaseAuth.instance;
+  }
+
+  Future <void> _authenticate() async{
+    UserCredential userCredential;
+    userCredential  = await _auth.signInWithEmailAndPassword(
+      //Passa email e senha para o Firebase, verificando se está cadastrado
+        email: "carolina.salvador@fatec.sp.gov.br",
+        password: "123456"
+
+    );
+    try{
+      print(userCredential.toString());
+      print("Conectado");
+
+      Navigator.pushNamed(context, '/home');
+    } catch(e) {
+      print("E-mail ou senha incorretos: $e");
+      print(email);
+      print(passwordController);
+
+    }
+    setState((){
+
+    });
   }
 }

@@ -39,7 +39,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         color: MyColors.color3,
                       ),
                       onPressed: onBackButtonPressed ??
-                          () {}, // Chame a função quando o botão de voltar for pressionado, ou use uma função vazia se onBackButtonPressed for nulo
+                              () {}, // Chame a função quando o botão de voltar for pressionado, ou use uma função vazia se onBackButtonPressed for nulo
                     ),
                     SizedBox(width: 8),
                     // Espaçamento entre o botão de voltar e o título

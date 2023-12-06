@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Importe este pacote para usar o TextEditingController
 import '/widgets/navibar.dart';
-import '/widgets/appbar.dart';
+import '/widgets/appBar.dart';
 import '/widgets/colors.dart';
 
 class ManageProfileScreen extends StatefulWidget {

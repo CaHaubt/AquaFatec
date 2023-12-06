@@ -1,45 +1,29 @@
+import 'package:aquafatec/screens/settings/mqtt_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
-import 'package:mqtt_client/mqtt_server_client.dart';
-import '../widgets/appbar.dart';
+import '../widgets/appBar.dart';
 import '../widgets/colors.dart';
 import '../widgets/navibar.dart';
 import 'package:intl/intl.dart';
-import 'package:aquafatec/screens/settings/mqtt_manager.dart';
 
 
 class TurbidezScreen extends StatefulWidget {
-  const TurbidezScreen({super.key});
+  const TurbidezScreen({Key? key}) : super(key: key);
 
   @override
-  _TurbidezScreenState createState() => _TurbidezScreenState();
+  State<TurbidezScreen> createState() => _TurbidezScreenState();
 }
 
 class _TurbidezScreenState extends State<TurbidezScreen> {
-  MQTTManager mqttManager = MQTTManager();
+  MQTTClientManager mqttClientManager = MQTTClientManager();
+  final String pubTopic = "aquafatec/tanque1/turbidez";
   String turbidezValue = 'null';
 
   @override
   void initState() {
+    setupMqttClient();
+    setupUpdatesListener();
     super.initState();
-    mqttManager.initialize();
-    subscribeToTurbidezTopic();
-  }
-
-  void subscribeToTurbidezTopic() async {
-    MqttServerClient mqttClient = mqttManager.getClient();
-
-    mqttClient.subscribe('turbidez', MqttQos.atLeastOnce);
-
-    mqttClient.updates?.listen((List<MqttReceivedMessage<MqttMessage>> c) {
-      final MqttPublishMessage recMess = c[0].payload as MqttPublishMessage;
-      final String message =
-      MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-
-      setState(() {
-        turbidezValue = message;
-      });
-    });
   }
 
   @override
@@ -124,5 +108,24 @@ class _TurbidezScreenState extends State<TurbidezScreen> {
       ),
     );
   }
+  Future<void> setupMqttClient() async{
+    await mqttClientManager.connect();
+    mqttClientManager.subscribe(pubTopic);
+  }
+
+  void setupUpdatesListener(){
+    mqttClientManager
+        .getMessagesStream()!
+        .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+      final recMess = c![0].payload as MqttPublishMessage;
+      final pt =
+      MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      setState(() {
+        turbidezValue = pt;
+      });
+      //print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n ');
+    });
+  }
+
 }
 

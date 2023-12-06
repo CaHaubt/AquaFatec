@@ -1,3 +1,4 @@
+import 'package:aquafatec/screens/alimentadorPage.dart';
 import 'package:flutter/material.dart';
 import '/screens/loading.dart';
 import '/screens/login.dart';
@@ -8,9 +9,9 @@ import '/screens/about.dart';
 import '/screens/register.dart';
 import '/screens/notifications.dart';
 import '/screens/settings/manage_profile.dart';
-// import '/screens/phPage.dart';
+import '/screens/phPage.dart';
 import '/screens/temperaturePage.dart';
-// import '/screens/turbidezPage.dart';
+import '/screens/turbidezPage.dart';
 
 
 void main() async {
@@ -38,8 +39,9 @@ class AquaFatecApp extends StatelessWidget {
         '/about': (context) => AboutScreen(),
         '/manage_profile': (context) => ManageProfileScreen(),
         '/temperaturePage': (context) => TemperatureScreen(),
-        // '/phPage': (context) => PHScreen(),
-        // '/turbidezPage': (context) => TurbidezScreen(),
+        '/phPage': (context) => PHScreen(),
+        '/turbidezPage': (context) => TurbidezScreen(),
+        '/alimentadorPage': (context) => AlimentadorScreen(),
       },
     );
   }

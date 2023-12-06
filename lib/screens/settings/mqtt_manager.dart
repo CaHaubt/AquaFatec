@@ -1,20 +1,20 @@
 import 'dart:io';
 import 'package:mqtt_client/mqtt_client.dart';
-import 'package:mqtt_client/mqtt_browser_client.dart';
-//import 'package:mqtt_client/mqtt_server_client.dart'; // mqtt celular
+import 'package:mqtt_client/mqtt_browser_client.dart'; //mqtt web
+// import 'package:mqtt_client/mqtt_server_client.dart'; // mqtt celular
 
 
 class MQTTClientManager { //classe responsável pela conexão
+  // //construtor web
   MqttBrowserClient client =
-   MqttBrowserClient('ws://mqtt', ''); //construtor
+  MqttBrowserClient('ws://mqtt', '');
 
-  //construtor Mqtt celular
-  //MqttServerClient client =
-  //       MqttServerClient('mqtt', " ");
+  // //construtor Mqtt celular
+  // MqttServerClient client = MqttServerClient('mqtt', " ");
 
   Future<int> connect() async { //configurar a conexão
     //conexão para navegador;
-    client.port = 9001; // port 1883 para Mqtt celular
+    client.port = 9001; // port 1883 para Mqtt celular OU port 9001 para web
     client.websocketProtocols = MqttClientConstants.protocolsSingleDefault;
     //fim conexão navegador
 

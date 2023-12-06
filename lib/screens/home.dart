@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
             if (buttonText == 'ph') {
               Navigator.pushNamed(context, '/phPage');
             } else if (buttonText == 'Alimentador') {
-              Navigator.pushNamed(context, '/alimentador');
+              Navigator.pushNamed(context, '/alimentadorPage');
             } else if (buttonText == 'Nível d\'água') {
               Navigator.pushNamed(context, '/nivelAgua');
             } else if (buttonText == 'Oxigênio') {

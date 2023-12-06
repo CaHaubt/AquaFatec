@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 import '/widgets/navibar.dart';
-import '/widgets/appbar.dart';
+import '/widgets/appBar.dart';
 import '/widgets/colors.dart';
 
 class NotificationsScreen extends StatefulWidget {

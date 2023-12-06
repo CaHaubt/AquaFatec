@@ -100,7 +100,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 style: TextStyle(
                   fontSize: 28.0,
                   fontWeight: FontWeight.bold,
-                  color: MyColors.color3, // Coloque aqui a cor desejada
+                  color: MyColors.color3,
                 ),
                 textAlign: TextAlign.center,
               ),
