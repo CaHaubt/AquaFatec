@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Importe este pacote para usar o TextEditingController
+import 'package:flutter/services.dart';
 import '/widgets/navibar.dart';
 import '/widgets/appBar.dart';
 import '/widgets/colors.dart';
+import '/services/auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ManageProfileScreen extends StatefulWidget {
   @override
@@ -16,51 +18,51 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
   TextEditingController senhaController = TextEditingController();
   TextEditingController confirmarSenhaController = TextEditingController();
 
-  bool _showSenhaAtual =
-      false; // Variável de controle para mostrar/ocultar a senha atual
-  bool _showSenhaNova =
-      false; // Variável de controle para mostrar/ocultar a nova senha
-  bool _showConfirmarSenha =
-      false; // Variável de controle para mostrar/ocultar a confirmação da senha
-  String nomeUsuarioAtual =
-      'Nome de Usuário'; // Substitua pelo nome do usuário atual
-  bool alteracoesEfetuadasComSucesso =
-      false; // Adicionado para controlar o sucesso das alterações
+  bool _showSenhaAtual = false;
+  bool _showSenhaNova = false;
+  bool _showConfirmarSenha = false;
+  String nomeUsuarioAtual = ''; 
+  bool alteracoesEfetuadasComSucesso = false;
+
+  final AuthService _authService = AuthService();
 
   @override
   void initState() {
     super.initState();
-    // Carregar os dados do perfil aqui, se necessário
-    // Por exemplo:
-    // nomeController.text = 'Nome do Usuário';
-    // emailController.text = 'email@exemplo.com';
   }
 
-  void _updateProfile() {
-    // Verifique se o campo de senha atual está vazio
+  void _updateProfile() async {
     if (senhaAtualController.text.isEmpty) {
       _showErrorDialog("Erro ao efetuar alterações",
           "Por favor, informe a senha atual corretamente para continuar.");
       return;
     }
 
-    // Implemente a lógica para verificar a senha atual e atualizar o perfil aqui
-    // Você pode acessar os valores dos controladores:
-    // nomeController.text
-    // emailController.text
-    // senhaAtualController.text
-    // senhaController.text
-    // confirmarSenhaController.text
+    try {
+      User? user = await _authService.signIn(
+          emailController.text, senhaAtualController.text);
 
-    // Simulando um caso de sucesso para teste
-    alteracoesEfetuadasComSucesso = true;
+      if (user != null) {
+        await user.updateEmail(emailController.text);
+        await user.updatePassword(senhaController.text);
 
-    if (alteracoesEfetuadasComSucesso) {
-      _showSuccessDialog();
-    } else {
-      // Se as alterações não forem bem-sucedidas, você pode mostrar uma mensagem de erro na mesma tela
-      _showErrorDialog("Erro ao efetuar alterações",
-          "Não foi possível atualizar o perfil. Por favor, tente novamente.");
+        if (nomeController.text != nomeUsuarioAtual) {
+          await user.updateDisplayName(nomeController.text);
+        }
+
+        alteracoesEfetuadasComSucesso = true;
+
+        if (alteracoesEfetuadasComSucesso) {
+          _showSuccessDialog();
+        } else {
+          _showErrorDialog("Erro ao efetuar alterações",
+              "Não foi possível atualizar o perfil. Por favor, tente novamente.");
+        }
+      }
+    } catch (e) {
+      print(e.toString());
+      _showErrorDialog(
+          "Erro ao efetuar alterações", "Senha atual incorreta.");
     }
   }
 
@@ -104,8 +106,8 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
-                    // Redirecione para a tela de perfil
-                    Navigator.of(context).pushReplacementNamed('/profile');
+                    Navigator.of(context)
+                        .pushReplacementNamed('/profile');
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColors.containerButton,
@@ -152,7 +154,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   style: TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
-                    color: MyColors.color2, // Defina a cor para MyColors.color2
+                    color: MyColors.color2,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -161,7 +163,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
-                    color: MyColors.color1, // Defina a cor para MyColors.color1
+                    color: MyColors.color1,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -178,8 +180,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color:
-                          MyColors.color2, // Defina a cor para MyColors.color2
+                      color: MyColors.color2,
                     ),
                   ),
                 ),
@@ -220,11 +221,10 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
               ),
               SizedBox(height: 24.0),
               TextFormField(
-                controller: TextEditingController(text: nomeUsuarioAtual),
-                readOnly: true, // Torna o campo de nome somente leitura
+                controller: TextEditingController(text: _authService.getCurrentUser()?.displayName ?? ''),
+                readOnly: true,
                 style: TextStyle(
-                  color:
-                      Colors.grey, // Cor do texto do campo de nome desabilitado
+                  color: Colors.grey,
                 ),
                 decoration: InputDecoration(
                   labelText: 'Nome de Usuário atual (Não modificável)',
@@ -234,17 +234,16 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   filled: true,
                   fillColor: Colors.grey[200],
                   enabledBorder: OutlineInputBorder(
-                    // Estilo da borda quando o campo está desabilitado
                     borderRadius: BorderRadius.circular(12.0),
                     borderSide: BorderSide(
-                      color: Colors.grey, // Cor da borda
+                      color: Colors.grey,
                     ),
                   ),
                 ),
               ),
               SizedBox(height: 16.0),
               TextFormField(
-                controller: emailController,
+                controller: TextEditingController(text: _authService.getCurrentUser()?.email ?? ''),
                 decoration: InputDecoration(
                   labelText: 'Endereço de E-mail',
                   border: OutlineInputBorder(
@@ -256,7 +255,6 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
               TextFormField(
                 controller: senhaAtualController,
                 obscureText: !_showSenhaAtual,
-                // Use a variável de controle correspondente
                 decoration: InputDecoration(
                   labelText: 'Senha Atual',
                   border: OutlineInputBorder(
@@ -265,13 +263,11 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   suffixIcon: IconButton(
                     icon: Icon(
                       _showSenhaAtual ? Icons.visibility : Icons.visibility_off,
-                      // Alterna entre os ícones de olho
-                      color: Colors.grey, // Cor dos ícones
+                      color: Colors.grey,
                     ),
                     onPressed: () {
                       setState(() {
-                        _showSenhaAtual =
-                            !_showSenhaAtual; // Alterne o estado da variável de controle
+                        _showSenhaAtual = !_showSenhaAtual;
                       });
                     },
                   ),
@@ -281,7 +277,6 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
               TextFormField(
                 controller: senhaController,
                 obscureText: !_showSenhaNova,
-                // Use a variável de controle correspondente
                 decoration: InputDecoration(
                   labelText: 'Nova Senha',
                   border: OutlineInputBorder(
@@ -290,13 +285,11 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   suffixIcon: IconButton(
                     icon: Icon(
                       _showSenhaNova ? Icons.visibility : Icons.visibility_off,
-                      // Alterna entre os ícones de olho
-                      color: Colors.grey, // Cor dos ícones
+                      color: Colors.grey,
                     ),
                     onPressed: () {
                       setState(() {
-                        _showSenhaNova =
-                            !_showSenhaNova; // Alterne o estado da variável de controle
+                        _showSenhaNova = !_showSenhaNova;
                       });
                     },
                   ),
@@ -306,7 +299,6 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
               TextFormField(
                 controller: confirmarSenhaController,
                 obscureText: !_showConfirmarSenha,
-                // Use a variável de controle correspondente
                 decoration: InputDecoration(
                   labelText: 'Confirmar Nova Senha',
                   border: OutlineInputBorder(
@@ -316,14 +308,12 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                     icon: Icon(
                       _showConfirmarSenha
                           ? Icons.visibility
-                          : Icons
-                              .visibility_off, // Alterna entre os ícones de olho
-                      color: Colors.grey, // Cor dos ícones
+                          : Icons.visibility_off,
+                      color: Colors.grey,
                     ),
                     onPressed: () {
                       setState(() {
-                        _showConfirmarSenha =
-                            !_showConfirmarSenha; // Alterne o estado da variável de controle
+                        _showConfirmarSenha = !_showConfirmarSenha;
                       });
                     },
                   ),
@@ -336,13 +326,13 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          _updateProfile(); // Chama a função para atualizar o perfil
+          _updateProfile();
         },
         backgroundColor: Colors.green,
         child: Icon(
           Icons.check,
-          color: Colors.white, // Defina a cor do ícone
-          size: 32.0, // Defina o tamanho do ícone
+          color: Colors.white,
+          size: 32.0,
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -351,7 +341,6 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
       bottomNavigationBar: BottomNavBar(
         currentIndex: 3,
         onTap: (menu) {
-          // Implemente a navegação para as outras telas aqui, se necessário
           if (menu == 0) {
             Navigator.pushNamed(context, '/menu');
           } else if (menu == 1) {
