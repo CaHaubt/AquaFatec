@@ -5,7 +5,10 @@ import '../widgets/appBar.dart';
 import '../widgets/colors.dart';
 import '../widgets/navibar.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_database/firebase_database.dart';
+//import '../firebase_options.dart';
 
+final databaseReference  = FirebaseDatabase.instance.ref().child("temperature");
 
 class TemperatureScreen extends StatefulWidget {
   const TemperatureScreen({super.key});
@@ -134,6 +137,9 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
               MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
           setState(() {
             temperature = '$pt ºC';
+
+            databaseReference.set({"timestamp": DateTime.now(), "value": pt});
+
           });
           //print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n ');
     });
