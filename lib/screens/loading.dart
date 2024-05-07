@@ -4,7 +4,7 @@ import 'dart:async';
 import 'welcome.dart';
 
 class LoadingScreen extends StatelessWidget {
-  const LoadingScreen({Key? key});
+  const LoadingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class LoadingScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20.0),
               // Espaço entre a imagem e a animação
-              CircularProgressIndicator(
+              const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
                     Colors.blue), // Cor da animação
               ),

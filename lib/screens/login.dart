@@ -3,6 +3,8 @@ import '/widgets/colors.dart';
 import '/services/auth.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -35,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                     color: MyColors.color3,
@@ -45,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Text(
                   content,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: MyColors.offToggle,
                   ),
@@ -57,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColors.color3,
-                    fixedSize: Size(110, 20),
+                    fixedSize: const Size(110, 20),
                   ),
                   child: const Text(
                     'OK',
@@ -86,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(height: 20.0),
+              const SizedBox(height: 20.0),
               Image.asset(
                 'assets/logo.png',
                 width: 120,
@@ -94,7 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.center,
               ),
               const SizedBox(height: 12.0),
-              Text(
+              const Text(
                 'Sistema de gerenciamento de Aquaponia!',
                 style: TextStyle(
                   fontSize: 20.0,
@@ -103,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 5.0),
-              Text(
+              const Text(
                 'Efetue o login para prosseguir:',
                 style: TextStyle(
                   fontSize: 14.0,
@@ -160,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: MyColors.color3,
+                  backgroundColor: MyColors.color3,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),

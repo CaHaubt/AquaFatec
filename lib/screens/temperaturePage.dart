@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 
 class TemperatureScreen extends StatefulWidget {
-  const TemperatureScreen({Key? key}) : super(key: key);
+  const TemperatureScreen({super.key});
 
 
   @override
@@ -92,7 +92,7 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
             color: Colors.black.withOpacity(0.2),
             spreadRadius: 1,
             blurRadius: 2,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -133,7 +133,7 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
           final pt = 
               MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
           setState(() {
-            temperature = '${pt} ºC';
+            temperature = '$pt ºC';
           });
           //print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n ');
     });

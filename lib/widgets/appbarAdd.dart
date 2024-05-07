@@ -8,7 +8,7 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
   final bool showBackButton;
   final VoidCallback? onBackButtonPressed;
 
-  CustomAppBarAdd({
+  const CustomAppBarAdd({super.key, 
     required this.title,
     this.subtitle,
     this.showBackButton = false,
@@ -37,7 +37,7 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
               Column(
                 children: [
                   IconButton(
-                    icon: Icon(
+                    icon: const Icon(
                       Icons.arrow_back,
                       color: MyColors.color3,
                     ),
@@ -52,7 +52,7 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     // Espaçamento entre o botão de voltar e o título
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,7 +60,7 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
                         Text(
                           title,
                           textAlign: TextAlign.start,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: MyColors.color3,
@@ -69,7 +69,7 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
                         if (subtitle != null)
                           Text(
                             subtitle!,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 16,
                               color: MyColors.color1,
                             ),
@@ -82,7 +82,7 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
                         children: [
                           Text(
                             title,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: MyColors.color3,
@@ -91,7 +91,7 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
                           if (subtitle != null)
                             Text(
                               subtitle!,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 fontSize: 16,
                                 color: MyColors.color1,
                               ),

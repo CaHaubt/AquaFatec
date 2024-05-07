@@ -7,7 +7,7 @@ import '../widgets/navibar.dart';
 import 'package:intl/intl.dart';
 
 class PHScreen extends StatefulWidget {
-  const PHScreen({Key? key}) : super(key: key);
+  const PHScreen({super.key});
 
   @override
   State<PHScreen> createState() => _PHScreenState();
@@ -88,7 +88,7 @@ class _PHScreenState extends State<PHScreen> {
             color: Colors.black.withOpacity(0.2),
             spreadRadius: 1,
             blurRadius: 2,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -121,7 +121,7 @@ class _PHScreenState extends State<PHScreen> {
       final pt =
       MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
       setState(() {
-        phValue = '${pt} ºC';
+        phValue = '$pt ºC';
       });
       //print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n ');
     });

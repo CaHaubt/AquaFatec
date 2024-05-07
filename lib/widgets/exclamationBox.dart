@@ -7,7 +7,7 @@ class ExclamationBox extends StatelessWidget {
   final double fontSize; // Tamanho da fonte do título
   final String additionalText;
 
-  ExclamationBox({
+  const ExclamationBox({super.key, 
     required this.label,
     required this.value,
     this.fontSize = 16.0,
@@ -27,7 +27,7 @@ class ExclamationBox extends StatelessWidget {
             color: Colors.black.withOpacity(0.2),
             spreadRadius: 1,
             blurRadius: 2,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
@@ -49,10 +49,10 @@ class ExclamationBox extends StatelessWidget {
             child: Container(
               width: 30,
               height: 30,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 shape: BoxShape.circle,
               ),
-              child: Center(
+              child: const Center(
                 child: Icon(
                   Icons.info, // Ícone "i" para informações
                   color: MyColors.color1, // Cor do ícone "i"
@@ -60,7 +60,7 @@ class ExclamationBox extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
             child: Text(
               value,
@@ -98,7 +98,7 @@ class ExclamationBox extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text("Fechar"),
+              child: const Text("Fechar"),
             ),
           ],
         );

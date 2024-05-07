@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 
 
 class TurbidezScreen extends StatefulWidget {
-  const TurbidezScreen({Key? key}) : super(key: key);
+  const TurbidezScreen({super.key});
 
   @override
   State<TurbidezScreen> createState() => _TurbidezScreenState();
@@ -89,7 +89,7 @@ class _TurbidezScreenState extends State<TurbidezScreen> {
             color: Colors.black.withOpacity(0.2),
             spreadRadius: 1,
             blurRadius: 2,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),

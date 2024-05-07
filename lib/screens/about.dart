@@ -4,6 +4,8 @@ import '/widgets/colors.dart';
 import '/widgets/navibar.dart';
 
 class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +23,7 @@ class AboutScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Versão',
               style: TextStyle(
                 fontSize: 18,
@@ -29,22 +31,22 @@ class AboutScreen extends StatelessWidget {
                 color: MyColors.color3,
               ),
             ),
-            Text(
+            const Text(
               '1.0.0.1',
               style: TextStyle(
                 fontSize: 16,
                 color: MyColors.color1,
               ),
             ),
-            SizedBox(height: 16.0),
-            Text(
+            const SizedBox(height: 16.0),
+            const Text(
               'Software AquaFatec para Android. Todos os direitos reservados. AquaFatec e o logotipo da AquaFatec são marcas registradas da AquaFatec.com ou suas afiliadas.',
               style: TextStyle(
                 fontSize: 16,
                 color: MyColors.color1,
               ),
             ),
-            SizedBox(height: 16.0), // Espaço entre a descrição e os botões
+            const SizedBox(height: 16.0), // Espaço entre a descrição e os botões
             _buildProfileOption(
               text: 'Termos & Condições',
               icon: Icons.arrow_forward,
@@ -53,7 +55,7 @@ class AboutScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/terms_and_conditions');
               },
             ),
-            SizedBox(height: 16.0), // Espaço entre os botões
+            const SizedBox(height: 16.0), // Espaço entre os botões
             _buildProfileOption(
               text: 'Avisos de Terceiros',
               icon: Icons.arrow_forward,
@@ -98,7 +100,7 @@ class AboutScreen extends StatelessWidget {
               color: Colors.black.withOpacity(0.2),
               spreadRadius: 1,
               blurRadius: 2,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),

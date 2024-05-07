@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 import '/widgets/navibar.dart';
 import '/widgets/appBar.dart';
 import '/widgets/colors.dart';
@@ -7,7 +7,7 @@ import '/services/auth.dart';
 
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({super.key});
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -40,7 +40,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.color4,
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: 'Configurações',
         subtitle: 'Detalhes sobre sua conta e perfil.',
       ),
@@ -65,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Text(
                       _user.displayName ?? 'Nome do Usuário',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: MyColors.color3,
@@ -93,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     color: Colors.black.withOpacity(0.2),
                     spreadRadius: 1,
                     blurRadius: 2,
-                    offset: Offset(0, 2),
+                    offset: const Offset(0, 2),
                   ),
                 ],
               ),
@@ -133,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               },
             ),
             const SizedBox(height: 16),
-            Spacer(),
+            const Spacer(),
             _buildProfileOption(
               text: 'Ajuda e Feedback',
               icon: Icons.help_outline,
@@ -141,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Navigator.pushNamed(context, '/support');
               },
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildProfileOption(
               text: 'Sobre & Aviso legal',
               icon: Icons.arrow_forward,
@@ -194,7 +194,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               color: Colors.black.withOpacity(0.2),
               spreadRadius: 1,
               blurRadius: 2,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -238,7 +238,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'Tem certeza que deseja sair?',
                   style: TextStyle(
                     fontSize: 20,
@@ -265,7 +265,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: MyColors.color1,
-                        fixedSize: Size(110, 20),
+                        fixedSize: const Size(110, 20),
                       ),
                       child: const Text(
                         'Cancelar',
@@ -283,7 +283,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: MyColors.color2,
-                        fixedSize: Size(110, 20),
+                        fixedSize: const Size(110, 20),
                       ),
                       child: const Text(
                         'Sair',

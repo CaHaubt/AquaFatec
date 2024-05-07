@@ -5,7 +5,7 @@ import '/widgets/appBar.dart';
 import '/widgets/colors.dart';
 
 class NotificationsScreen extends StatefulWidget {
-  const NotificationsScreen({Key? key}) : super(key: key);
+  const NotificationsScreen({super.key});
 
   @override
   _NotificationsScreenState createState() => _NotificationsScreenState();
@@ -83,7 +83,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.color4,
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         title: 'Notificações',
         subtitle: 'Saiba tudo o que aconteceu nas últimas horas.',
       ),
@@ -149,11 +149,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             color: Colors.black.withOpacity(0.2),
             spreadRadius: 1,
             blurRadius: 2,
-            offset: Offset(0, 2),
+            offset: const Offset(0, 2),
           ),
         ],
       ),
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minHeight: 42,
       ),
       padding: const EdgeInsets.all(10),
@@ -183,7 +183,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     ),
                     Text(
                       timeAgo,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: MyColors.color1,
                       ),
                     ),
@@ -191,7 +191,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 ),
                 Text(
                   description,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: MyColors.color1,
                   ),
                 ),

@@ -4,6 +4,8 @@ import '/services/auth.dart';
 import '/widgets/colors.dart';
 
 class CadastroScreen extends StatefulWidget {
+  const CadastroScreen({super.key});
+
   @override
   _CadastroScreenState createState() => _CadastroScreenState();
 }
@@ -48,7 +50,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                     color: MyColors.color3,
@@ -58,7 +60,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 Text(
                   content,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: MyColors.offToggle,
                   ),
@@ -70,7 +72,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColors.color3,
-                    fixedSize: Size(110, 20),
+                    fixedSize: const Size(110, 20),
                   ),
                   child: const Text(
                     'OK',
@@ -95,11 +97,11 @@ class _CadastroScreenState extends State<CadastroScreen> {
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: 100.0, left: 20.0, right: 20.0),
+          padding: const EdgeInsets.only(top: 100.0, left: 20.0, right: 20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Bem-vindo ao AquaFatec!',
                 style: TextStyle(
                   fontSize: 28.0,
@@ -108,8 +110,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 20.0),
-              Text(
+              const SizedBox(height: 20.0),
+              const Text(
                 'Olá! Acredito que seja novo(a) aqui. Você pode começar a usar assim que efetuar a inscrição.',
                 style: TextStyle(
                   fontSize: 16.0,
@@ -117,7 +119,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 24.0),
+              const SizedBox(height: 24.0),
               Form(
                 key: _formKey,
                 child: Column(
@@ -139,7 +141,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
                     TextFormField(
                       key: _emailKey,
                       controller: emailController,
@@ -157,7 +159,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
                     TextFormField(
                       key: _passwordKey,
                       controller: passwordController,
@@ -187,7 +189,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
                     TextFormField(
                       key: _confirmPasswordKey,
                       controller: confirmPasswordController,
@@ -223,7 +225,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         return null;
                       },
                     ),
-                    SizedBox(height: 24.0),
+                    const SizedBox(height: 24.0),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -276,9 +278,9 @@ class _CadastroScreenState extends State<CadastroScreen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
                           ),
-                          padding: EdgeInsets.symmetric(vertical: 16.0),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
                         ),
-                        child: Text(
+                        child: const Text(
                           'Inscrever',
                           style: TextStyle(
                             fontSize: 18.0,
@@ -288,7 +290,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 16.0),
+                    const SizedBox(height: 16.0),
                     TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/login');
@@ -296,7 +298,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                       style: TextButton.styleFrom(
                         foregroundColor: MyColors.color1,
                       ),
-                      child: Text(
+                      child: const Text(
                         'Voltar para o login',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,

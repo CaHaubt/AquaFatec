@@ -8,7 +8,7 @@ import '../widgets/navibar.dart';
 
 
 class AlimentadorScreen extends StatefulWidget {
-  const AlimentadorScreen({Key? key}) : super(key: key);
+  const AlimentadorScreen({super.key});
 
 
   @override
@@ -89,7 +89,7 @@ class _AlimentadorScreenState extends State<AlimentadorScreen> {
               color: Colors.black.withOpacity(0.2),
               spreadRadius: 1,
               blurRadius: 2,
-              offset: Offset(0, 2),
+              offset: const Offset(0, 2),
             ),
           ],
         ),
@@ -127,7 +127,7 @@ class _AlimentadorScreenState extends State<AlimentadorScreen> {
       final pt =
       MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
       setState(() {
-        feeder = '${pt} ºC';
+        feeder = '$pt ºC';
       });
       //print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n ');
     });

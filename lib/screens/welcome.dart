@@ -13,7 +13,7 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Bem-vindo ao AquaFatec',
               style: TextStyle(
                 fontSize: 28,
@@ -29,7 +29,7 @@ class WelcomeScreen extends StatelessWidget {
               height: 300, // Defina a altura desejada para a imagem
             ),
             const SizedBox(height: 40),
-            Text(
+            const Text(
               'O monitoramento da aquaponia na palma da sua mão.',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -50,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(
                     vertical: 16.0, horizontal: 32.0),
               ),
-              child: Text(
+              child: const Text(
                 'Começar',
                 style: TextStyle(
                   fontSize: 18,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '/widgets/navibar.dart';
 import '/widgets/appBar.dart';
 import '/widgets/colors.dart';
@@ -7,6 +6,8 @@ import '/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ManageProfileScreen extends StatefulWidget {
+  const ManageProfileScreen({super.key});
+
   @override
   _ManageProfileScreenState createState() => _ManageProfileScreenState();
 }
@@ -85,7 +86,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   'Alterações efetuadas com sucesso',
                   style: TextStyle(
                     fontSize: 17,
@@ -111,7 +112,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColors.containerButton,
-                    fixedSize: Size(110, 20),
+                    fixedSize: const Size(110, 20),
                   ),
                   child: const Text(
                     'OK',
@@ -151,7 +152,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 17,
                     fontWeight: FontWeight.bold,
                     color: MyColors.color2,
@@ -161,7 +162,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                 Text(
                   message,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
                     color: MyColors.color1,
                   ),
@@ -173,7 +174,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColors.containerButton,
-                    fixedSize: Size(110, 20),
+                    fixedSize: const Size(110, 20),
                   ),
                   child: const Text(
                     'OK',
@@ -206,11 +207,11 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'Atualize seus dados de perfil',
                 style: TextStyle(
                   fontSize: 22.0,
@@ -219,11 +220,11 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 24.0),
+              const SizedBox(height: 24.0),
               TextFormField(
                 controller: TextEditingController(text: _authService.getCurrentUser()?.displayName ?? ''),
                 readOnly: true,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.grey,
                 ),
                 decoration: InputDecoration(
@@ -235,13 +236,13 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   fillColor: Colors.grey[200],
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12.0),
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.grey,
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 controller: TextEditingController(text: _authService.getCurrentUser()?.email ?? ''),
                 decoration: InputDecoration(
@@ -251,7 +252,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 controller: senhaAtualController,
                 obscureText: !_showSenhaAtual,
@@ -273,7 +274,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 controller: senhaController,
                 obscureText: !_showSenhaNova,
@@ -295,7 +296,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
                 controller: confirmarSenhaController,
                 obscureText: !_showConfirmarSenha,
@@ -319,7 +320,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 24.0),
+              const SizedBox(height: 24.0),
             ],
           ),
         ),
@@ -329,13 +330,13 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
           _updateProfile();
         },
         backgroundColor: Colors.green,
-        child: Icon(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        child: const Icon(
           Icons.check,
           color: Colors.white,
           size: 32.0,
-        ),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
         ),
       ),
       bottomNavigationBar: BottomNavBar(
