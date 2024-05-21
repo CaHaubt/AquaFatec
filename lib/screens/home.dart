@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   _buildMenuItem(
                     imageAsset: 'assets/alimentador.png',
-                    buttonText: 'Alimentador',
+                    buttonText: 'Alimentação',
                     menuItemAssetSize: childrenAssetSizeBasedOnScreenHeight
                   ),
                   _buildMenuItem(
@@ -117,8 +117,8 @@ class _HomeScreenState extends State<HomeScreen> {
       onTap: () {
         if (buttonText == 'pH') {
           Navigator.pushNamed(context, '/phPage');
-        } else if (buttonText == 'Alimentador') {
-          Navigator.pushNamed(context, '/alimentador');
+        } else if (buttonText == 'Alimentação') {
+          Navigator.pushNamed(context, '/alimentadorPage');
         } else if (buttonText == 'Nível d\'água') {
           Navigator.pushNamed(context, '/nivelAgua');
         } else if (buttonText == 'Oxigênio') {
@@ -133,9 +133,9 @@ class _HomeScreenState extends State<HomeScreen> {
         tag: buttonText,
         child: InkResponse(
           onTap: () {
-            if (buttonText == 'ph') {
+            if (buttonText == 'pH') {
               Navigator.pushNamed(context, '/phPage');
-            } else if (buttonText == 'Alimentador') {
+            } else if (buttonText == 'Alimentação') {
               Navigator.pushNamed(context, '/alimentadorPage');
             } else if (buttonText == 'Nível d\'água') {
               Navigator.pushNamed(context, '/nivelAgua');

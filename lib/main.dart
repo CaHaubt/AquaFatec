@@ -53,7 +53,7 @@ class AquaFatecApp extends StatelessWidget {
         '/temperaturePage': (context) => const TemperatureScreen(),
         '/phPage': (context) => const PHScreen(),
         '/turbidezPage': (context) => const TurbidezScreen(),
-        '/alimentadorPage': (context) => const AlimentadorScreen(),
+        '/alimentadorPage': (context) => const FeederPage()
       },
     );
   }

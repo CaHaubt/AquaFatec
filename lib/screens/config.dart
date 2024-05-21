@@ -207,6 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
+                color: MyColors.dialogText, // Alterar a cor do texto para MyColors.dialogText
               ),
             ),
             Icon(

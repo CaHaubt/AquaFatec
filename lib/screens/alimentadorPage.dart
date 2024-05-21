@@ -1,29 +1,28 @@
 import 'package:aquafatec/screens/settings/mqtt_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
-import '../widgets/appbarAdd.dart';
+import '../widgets/appBar.dart';
 import '../widgets/colors.dart';
 import '../widgets/navibar.dart';
-// import 'package:intl/intl.dart';
+import 'package:intl/intl.dart';
 
-
-class AlimentadorScreen extends StatefulWidget {
-  const AlimentadorScreen({super.key});
-
+class FeederPage extends StatefulWidget {
+  const FeederPage({super.key});
 
   @override
-  State<AlimentadorScreen> createState() => _AlimentadorScreenState();
+  State<FeederPage> createState() => _FeederPageState();
 }
 
-class _AlimentadorScreenState extends State<AlimentadorScreen> {
+class _FeederPageState extends State<FeederPage> {
   MQTTClientManager mqttClientManager = MQTTClientManager();
-  final String pubTopic = "aquafatec/tanque1/alimentador";
-   String feeder = "null";
+  final String pubTopic = "aquafatec/alimentador/configuracoes";
+  String feedType = "Ração X";
+  String feedAmount = "100g";
+  List<TimeOfDay> feedTimes = [TimeOfDay.now()];
 
   @override
   void initState() {
     setupMqttClient();
-    setupUpdatesListener();
     super.initState();
   }
 
@@ -31,26 +30,47 @@ class _AlimentadorScreenState extends State<AlimentadorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.color4,
-      appBar: CustomAppBarAdd(
+      appBar: CustomAppBar(
         title: 'Alimentador',
-        subtitle: 'Escolha um alimentador',
-        showBackButton: true, // Exibe o botão de voltar apenas nesta tela
+        subtitle: 'Configurações de alimentação',
+        showBackButton: true,
         onBackButtonPressed: () {
           Navigator.pushNamed(context, '/home');
         },
-
-        ),
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildFeederOption(
-              text: 'Alimentador 1',
-              icon: Icons.arrow_forward,
-              onTap: () {
-                Navigator.pushNamed(context, '/#');
-              },
+            const SizedBox(height: 10),
+            _buildInfoBox('Tipo de ração:', feedType, fontSize: 16),
+            _buildInfoBox('Gramas por porção:', feedAmount, fontSize: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Horários de alimentação:',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: MyColors.color3,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      feedTimes.add(TimeOfDay.now());
+                    });
+                  },
+                  icon: Icon(Icons.add_circle),
+                  color: MyColors.color1,
+                ),
+              ],
+            ),
+            ...List.generate(
+              feedTimes.length,
+                  (index) => _buildFeedTimeBox(index),
             ),
           ],
         ),
@@ -72,65 +92,97 @@ class _AlimentadorScreenState extends State<AlimentadorScreen> {
     );
   }
 
-  Widget _buildFeederOption({
-    required String text,
-    required IconData icon,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: MyColors.containerButton,
-          boxShadow: [
-            // Adiciona sombra
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: const Offset(0, 2),
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              text,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Icon(
-              icon,
+  Widget _buildInfoBox(String label, String value, {double fontSize = 16}) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: MyColors.containerButton,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
               color: MyColors.color3,
             ),
-          ],
-        ),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Future<void> setupMqttClient() async{
+  Widget _buildFeedTimeBox(int index) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: MyColors.containerButton,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 2,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            '${index + 1}º horário:',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: MyColors.color3,
+            ),
+          ),
+          Text(
+            feedTimes[index].format(context),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                feedTimes.removeAt(index);
+              });
+            },
+            icon: Icon(Icons.remove_circle),
+            color: Colors.red,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> setupMqttClient() async {
     await mqttClientManager.connect();
     mqttClientManager.subscribe(pubTopic);
   }
-
-  void setupUpdatesListener(){
-    mqttClientManager
-        .getMessagesStream()!
-        .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
-      final recMess = c![0].payload as MqttPublishMessage;
-      final pt =
-      MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-      setState(() {
-        feeder = '$pt ºC';
-      });
-      //print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n ');
-    });
-  }
-
 }

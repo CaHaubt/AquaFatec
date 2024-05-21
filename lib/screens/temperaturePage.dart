@@ -57,7 +57,7 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
                 width: double.infinity,
                 height: 250,
                 alignment: Alignment.center,
-              ),
+                )
             ),
 
             const SizedBox(height: 10),
