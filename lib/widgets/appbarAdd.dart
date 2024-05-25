@@ -29,7 +29,6 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsets.only(top: 30.0, left: 8.0, bottom: 0.0),
         color: MyColors.color4,
         child: ClipRect(
-          // Aplicar um ClipRect ao redor do conteúdo
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,18 +41,17 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
                       color: MyColors.color3,
                     ),
                     onPressed: onBackButtonPressed ??
-                            () {}, // Chame a função quando o botão de voltar for pressionado, ou use uma função vazia se onBackButtonPressed for nulo
+                            () {},
                   ),
                 ],
               ),
 
-              if (showBackButton) // Adicione o botão de voltar apenas se showBackButton for true
+              if (showBackButton)
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
 
                     const SizedBox(width: 8),
-                    // Espaçamento entre o botão de voltar e o título
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -76,7 +74,7 @@ class CustomAppBarAdd extends StatelessWidget implements PreferredSizeWidget {
                           ),
                       ],
                     ),
-                    if (!showBackButton) // Se o botão de voltar não estiver visível, exiba apenas o título e o subtítulo
+                    if (!showBackButton)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

@@ -41,7 +41,7 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
         subtitle: 'Confira detalhes do seu dispositivo',
         showBackButton: true, // Exibe o botão de voltar apenas nesta tela
         onBackButtonPressed: () {
-          Navigator.pushNamed(context, '/home');
+            Navigator.pushNamed(context, '/home');
         },
       ),
       body: SingleChildScrollView(

@@ -1,10 +1,12 @@
 import 'package:aquafatec/screens/settings/mqtt_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
-import '../widgets/appBar.dart';
+import '../widgets/appbar.dart';
 import '../widgets/colors.dart';
 import '../widgets/navibar.dart';
-import 'package:intl/intl.dart';
+import '../widgets/feed_time_box.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class FeederPage extends StatefulWidget {
   const FeederPage({super.key});
@@ -15,15 +17,17 @@ class FeederPage extends StatefulWidget {
 
 class _FeederPageState extends State<FeederPage> {
   MQTTClientManager mqttClientManager = MQTTClientManager();
-  final String pubTopic = "aquafatec/alimentador/configuracoes";
-  String feedType = "Ração X";
+  final String pubTopic = "aquafatec/tanque1/alimentador";
+  final String feedType = "Ração X";
   String feedAmount = "100g";
   List<TimeOfDay> feedTimes = [TimeOfDay.now()];
+  late SharedPreferences prefs;
 
   @override
   void initState() {
-    setupMqttClient();
     super.initState();
+    setupMqttClient();
+    _loadFeedSettings();
   }
 
   @override
@@ -46,47 +50,73 @@ class _FeederPageState extends State<FeederPage> {
             const SizedBox(height: 10),
             _buildInfoBox('Tipo de ração:', feedType, fontSize: 16),
             _buildInfoBox('Gramas por porção:', feedAmount, fontSize: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Horários de alimentação:',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: MyColors.color3,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    setState(() {
-                      feedTimes.add(TimeOfDay.now());
-                    });
-                  },
-                  icon: Icon(Icons.add_circle),
-                  color: MyColors.color1,
-                ),
-              ],
+            const SizedBox(height: 20),
+            const Text(
+              'Horários de alimentação:',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: MyColors.color1,
+              ),
             ),
+            const SizedBox(height: 10),
             ...List.generate(
               feedTimes.length,
-                  (index) => _buildFeedTimeBox(index),
+                  (index) => FeedTimeBox(
+                index: index,
+                feedTime: feedTimes[index],
+                onEditPressed: () {
+                  _onEditFeedTimePressed(index);
+                },
+                onRemovePressed: () {
+                  _onRemoveFeedTimePressed(index);
+                },
+              ),
             ),
           ],
         ),
       ),
+      floatingActionButton: SpeedDial(
+        animatedIcon: AnimatedIcons.menu_close,
+        backgroundColor: MyColors.color1,
+        foregroundColor: Colors.white,
+        children: [
+          SpeedDialChild(
+            child: const Icon(Icons.delete),
+            backgroundColor: MyColors.color2,
+            label: 'Remover Horário',
+            onTap: _onRemoveAllFeedTimesPressed,
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.add),
+            backgroundColor: MyColors.color3,
+            label: 'Adicionar Horário',
+            onTap: _onAddFeedTimePressed,
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.edit),
+            backgroundColor: MyColors.color3,
+            label: 'Editar Horários',
+            onTap: _onEditAllFeedTimesPressed,
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.edit_attributes),
+            backgroundColor: MyColors.color3,
+            label: 'Editar Gramas por Porção',
+            onTap: _onEditFeedAmountPressed,
+          ),
+          SpeedDialChild(
+            child: const Icon(Icons.edit_attributes),
+            backgroundColor: MyColors.color6,
+            label: 'Testar conexão',
+            onTap: _onTestPressed,
+          ),
+        ],
+      ),
       bottomNavigationBar: BottomNavBar(
         currentIndex: 1,
         onTap: (menu) {
-          if (menu == 0) {
-            Navigator.pushNamed(context, '/home');
-          } else if (menu == 1) {
-            Navigator.pushNamed(context, '/module');
-          } else if (menu == 2) {
-            Navigator.pushNamed(context, '/notifications');
-          } else if (menu == 3) {
-            Navigator.pushNamed(context, '/profile');
-          }
+          Navigator.pop(context);
         },
       ),
     );
@@ -94,7 +124,8 @@ class _FeederPageState extends State<FeederPage> {
 
   Widget _buildInfoBox(String label, String value, {double fontSize = 16}) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      height: 70,
+      margin: const EdgeInsets.symmetric(vertical: 16.0),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
@@ -124,7 +155,7 @@ class _FeederPageState extends State<FeederPage> {
             style: TextStyle(
               fontSize: fontSize,
               fontWeight: FontWeight.bold,
-              color: Colors.black,
+              color: MyColors.color5,
             ),
           ),
         ],
@@ -132,57 +163,161 @@ class _FeederPageState extends State<FeederPage> {
     );
   }
 
-  Widget _buildFeedTimeBox(int index) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: MyColors.containerButton,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 2,
-            offset: const Offset(0, 2),
+  void _saveFeedSettings() async {
+    prefs = await SharedPreferences.getInstance();
+    final feedTimesList = feedTimes.map((time) => '${time.hour}:${time.minute}').toList();
+    prefs.setStringList('feedTimes', feedTimesList);
+    prefs.setString('feedAmount', feedAmount);
+  }
+
+  void _loadFeedSettings() async {
+    prefs = await SharedPreferences.getInstance();
+    final savedFeedTimes = prefs.getStringList('feedTimes') ?? [];
+    final savedFeedAmount = prefs.getString('feedAmount') ?? "100g";
+    setState(() {
+      feedTimes = savedFeedTimes.map((timeStr) {
+        final timeParts = timeStr.split(':');
+        if (timeParts.length != 2) {
+          return const TimeOfDay(hour: 0, minute: 0);
+        }
+        final hour = int.parse(timeParts[0]);
+        final minute = int.parse(timeParts[1]);
+        return TimeOfDay(hour: hour, minute: minute);
+      }).toList();
+      feedAmount = savedFeedAmount;
+    });
+  }
+
+  void _onAddFeedTimePressed() {
+    setState(() {
+      feedTimes.add(TimeOfDay.now());
+      _saveFeedSettings();
+    });
+  }
+
+  void _onEditFeedTimePressed(int index) {
+    showTimePicker(
+      context: context,
+      initialTime: feedTimes[index],
+    ).then((selectedTime) {
+      if (selectedTime != null) {
+        setState(() {
+          feedTimes[index] = selectedTime;
+          _saveFeedSettings();
+        });
+      }
+    });
+  }
+
+  void _onRemoveFeedTimePressed(int index) {
+    setState(() {
+      feedTimes.removeAt(index);
+      _saveFeedSettings();
+    });
+  }
+
+  void _onEditAllFeedTimesPressed() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Editar Horários'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ...List.generate(feedTimes.length, (index) {
+                return ListTile(
+                  title: Text('${index + 1}º horário'),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.edit),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      _onEditFeedTimePressed(index);
+                    },
+                  ),
+                );
+              }),
+            ],
           ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            '${index + 1}º horário:',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: MyColors.color3,
+        );
+      },
+    );
+  }
+
+  void _onRemoveAllFeedTimesPressed() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Remover Todos os Horários'),
+          content: const Text('Tem certeza que deseja remover todos os horários de alimentação?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancelar'),
+            ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  feedTimes.clear();
+                  _saveFeedSettings();
+                });
+                Navigator.pop(context);
+              },
+              child: const Text('Remover'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _onEditFeedAmountPressed() {
+    TextEditingController controller = TextEditingController(text: feedAmount);
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Editar Gramatura'),
+          content: TextField(
+            controller: controller,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Gramas por porção',
+              hintText: 'Digite a quantidade em gramas',
             ),
           ),
-          Text(
-            feedTimes[index].format(context),
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancelar'),
             ),
-          ),
-          IconButton(
-            onPressed: () {
-              setState(() {
-                feedTimes.removeAt(index);
-              });
-            },
-            icon: Icon(Icons.remove_circle),
-            color: Colors.red,
-          ),
-        ],
-      ),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  feedAmount = controller.text;
+                  _saveFeedSettings();
+                });
+                Navigator.pop(context);
+              },
+              child: const Text('Salvar'),
+            ),
+          ],
+        );
+      },
     );
   }
 
   Future<void> setupMqttClient() async {
     await mqttClientManager.connect();
-    mqttClientManager.subscribe(pubTopic);
+  }
+
+  void _onTestPressed() {
+    mqttClientManager
+        .publishMessage(pubTopic, '1');
   }
 }

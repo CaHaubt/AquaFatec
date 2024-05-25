@@ -19,12 +19,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   final AuthService _authService = AuthService();
 
-  late User _user; // Adicionado para armazenar informações do usuário
+  late User _user;
 
   @override
   void initState() {
     super.initState();
-    _loadUserProfile(); // Carrega as informações do usuário ao iniciar a tela
+    _loadUserProfile();
   }
 
   Future<void> _loadUserProfile() async {
@@ -207,7 +207,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               style: const TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: MyColors.dialogText, // Alterar a cor do texto para MyColors.dialogText
+                color: MyColors.dialogText,
               ),
             ),
             Icon(
