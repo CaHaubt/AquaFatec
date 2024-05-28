@@ -4,15 +4,15 @@ import 'colors.dart';
 class FeedTimeBox extends StatefulWidget {
   final int index;
   final TimeOfDay feedTime;
-  final void Function() onEditPressed;
   final void Function() onRemovePressed;
+  final bool isRemoving;
 
   const FeedTimeBox({
     super.key,
     required this.index,
     required this.feedTime,
-    required this.onEditPressed,
     required this.onRemovePressed,
+    required this.isRemoving,
   });
 
   @override
@@ -20,8 +20,6 @@ class FeedTimeBox extends StatefulWidget {
 }
 
 class _FeedTimeBoxState extends State<FeedTimeBox> {
-  bool showRemoveButton = false;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,36 +49,23 @@ class _FeedTimeBoxState extends State<FeedTimeBox> {
               color: MyColors.color3,
             ),
           ),
-          Text(
-            widget.feedTime.format(context),
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: MyColors.color5,
+          Expanded(
+            child: Text(
+              widget.feedTime.format(context),
+              textAlign: TextAlign.right,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: MyColors.color5,
+              ),
             ),
           ),
-          Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    showRemoveButton = !showRemoveButton;
-                  });
-                  widget.onEditPressed();
-                },
-                icon: const Icon(Icons.edit),
-                color: MyColors.color1,
-              ),
-              if (showRemoveButton) ...[
-                const SizedBox(width: 8), // Espacamento entre os botoes
-                IconButton(
-                  onPressed: widget.onRemovePressed,
-                  icon: const Icon(Icons.remove_circle),
-                  color: Colors.red,
-                ),
-              ],
-            ],
-          ),
+          if (widget.isRemoving)
+            IconButton(
+              onPressed: widget.onRemovePressed,
+              icon: const Icon(Icons.remove_circle),
+              color: Colors.red,
+            ),
         ],
       ),
     );

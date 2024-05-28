@@ -44,7 +44,7 @@ class _ManageProfileScreenState extends State<ManageProfileScreen> {
           emailController.text, senhaAtualController.text);
 
       if (user != null) {
-        await user.updateEmail(emailController.text);
+        await user.verifyBeforeUpdateEmail(emailController.text);
         await user.updatePassword(senhaController.text);
 
         if (nomeController.text != nomeUsuarioAtual) {

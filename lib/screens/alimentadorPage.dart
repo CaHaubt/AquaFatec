@@ -22,6 +22,7 @@ class _FeederPageState extends State<FeederPage> {
   String feedAmount = "100g";
   List<TimeOfDay> feedTimes = [TimeOfDay.now()];
   late SharedPreferences prefs;
+  bool isRemoving = false;
 
   @override
   void initState() {
@@ -65,48 +66,60 @@ class _FeederPageState extends State<FeederPage> {
                   (index) => FeedTimeBox(
                 index: index,
                 feedTime: feedTimes[index],
-                onEditPressed: () {
-                  _onEditFeedTimePressed(index);
-                },
                 onRemovePressed: () {
                   _onRemoveFeedTimePressed(index);
                 },
+                isRemoving: isRemoving, // Adicionado para controlar o estado de remoção
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton: SpeedDial(
+      floatingActionButton: isRemoving
+          ? FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            isRemoving = false; // Desativar o modo de remoção
+          });
+        },
+        child: const Icon(Icons.check, color: Colors.white),
+        backgroundColor: Colors.green,
+      )
+          : SpeedDial(
         animatedIcon: AnimatedIcons.menu_close,
         backgroundColor: MyColors.color1,
         foregroundColor: Colors.white,
         children: [
           SpeedDialChild(
-            child: const Icon(Icons.delete),
+            child: const Icon(Icons.delete, color: MyColors.color7),
             backgroundColor: MyColors.color2,
-            label: 'Remover Horário',
-            onTap: _onRemoveAllFeedTimesPressed,
+            label: 'Remover Horários',
+            onTap: () {
+              setState(() {
+                isRemoving = true;
+              });
+            },
           ),
           SpeedDialChild(
-            child: const Icon(Icons.add),
+            child: const Icon(Icons.edit, color: MyColors.color7),
             backgroundColor: MyColors.color3,
-            label: 'Adicionar Horário',
-            onTap: _onAddFeedTimePressed,
+            label: 'Editar Gramatura',
+            onTap: _onEditFeedAmountPressed,
           ),
           SpeedDialChild(
-            child: const Icon(Icons.edit),
+            child: const Icon(Icons.update, color: MyColors.color7),
             backgroundColor: MyColors.color3,
             label: 'Editar Horários',
             onTap: _onEditAllFeedTimesPressed,
           ),
           SpeedDialChild(
-            child: const Icon(Icons.edit_attributes),
+            child: const Icon(Icons.add, color: MyColors.color7),
             backgroundColor: MyColors.color3,
-            label: 'Editar Gramas por Porção',
-            onTap: _onEditFeedAmountPressed,
+            label: 'Adicionar Horário',
+            onTap: _onAddFeedTimePressed,
           ),
           SpeedDialChild(
-            child: const Icon(Icons.edit_attributes),
+            child: const Icon(Icons.play_arrow, color: MyColors.color7),
             backgroundColor: MyColors.color6,
             label: 'Testar conexão',
             onTap: _onTestPressed,
@@ -244,36 +257,6 @@ class _FeederPageState extends State<FeederPage> {
     );
   }
 
-  void _onRemoveAllFeedTimesPressed() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Remover Todos os Horários'),
-          content: const Text('Tem certeza que deseja remover todos os horários de alimentação?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancelar'),
-            ),
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  feedTimes.clear();
-                  _saveFeedSettings();
-                });
-                Navigator.pop(context);
-              },
-              child: const Text('Remover'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   void _onEditFeedAmountPressed() {
     TextEditingController controller = TextEditingController(text: feedAmount);
     showDialog(
@@ -317,7 +300,6 @@ class _FeederPageState extends State<FeederPage> {
   }
 
   void _onTestPressed() {
-    mqttClientManager
-        .publishMessage(pubTopic, '1');
+    mqttClientManager.publishMessage(pubTopic, '1');
   }
 }

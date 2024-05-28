@@ -25,8 +25,9 @@ class WelcomeScreen extends StatelessWidget {
             Image.asset(
               'assets/mao.png',
               fit: BoxFit.fill,
-              width: double.infinity,
-              height: 300, // Defina a altura desejada para a imagem
+              width: 410,
+              height: 300,
+
             ),
             const SizedBox(height: 40),
             const Text(

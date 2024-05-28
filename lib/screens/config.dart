@@ -265,13 +265,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Navigator.of(context).pop();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: MyColors.color1,
+                        backgroundColor: MyColors.color4,
                         fixedSize: const Size(110, 20),
                       ),
                       child: const Text(
                         'Cancelar',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -283,13 +283,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Navigator.pushNamed(context, '/login');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: MyColors.color2,
+                        backgroundColor: MyColors.color4,
                         fixedSize: const Size(110, 20),
                       ),
                       child: const Text(
                         'Sair',
                         style: TextStyle(
-                          fontSize: 18,
+                          fontSize: 14,
+                          color: MyColors.color2,
                           fontWeight: FontWeight.bold,
                         ),
                       ),

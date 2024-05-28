@@ -5,6 +5,7 @@ import '../widgets/appBar.dart';
 import '../widgets/colors.dart';
 import '../widgets/navibar.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class TemperatureScreen extends StatefulWidget {
@@ -39,7 +40,7 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
       appBar: CustomAppBar(
         title: 'Temperatura',
         subtitle: 'Confira detalhes do seu dispositivo',
-        showBackButton: true, // Exibe o botão de voltar apenas nesta tela
+        showBackButton: true,
         onBackButtonPressed: () {
             Navigator.pushNamed(context, '/home');
         },
@@ -53,7 +54,6 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
               tag: 'temperature_image',
               child: Image.asset(
                 'assets/ph_mensal.png',
-                //alterar imagem para algo de temperatura
                 width: double.infinity,
                 height: 250,
                 alignment: Alignment.center,

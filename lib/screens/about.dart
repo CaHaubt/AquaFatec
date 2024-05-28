@@ -13,7 +13,7 @@ class AboutScreen extends StatelessWidget {
       appBar: CustomAppBar(
         title: 'Sobre & Aviso Legal',
         subtitle: 'Informações adicionais de privacidade',
-        showBackButton: true, // Exibe o botão de voltar apenas nesta tela
+        showBackButton: true,
         onBackButtonPressed: () {
           Navigator.pushNamed(context, '/profile');
         },
@@ -32,35 +32,35 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             const Text(
-              '1.0.0.1',
+              '1.0.1.3',
+              style: TextStyle(
+                fontSize: 16,
+                color: MyColors.color3,
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            const Text(
+              'Software AquaFatec para Android. Todos os direitos reservados. AquaFatec e o'
+                  ' logotipo da AquaFatec são marcas registradas da AquaFatec.com ou suas afiliadas.',
               style: TextStyle(
                 fontSize: 16,
                 color: MyColors.color1,
               ),
             ),
             const SizedBox(height: 16.0),
-            const Text(
-              'Software AquaFatec para Android. Todos os direitos reservados. AquaFatec e o logotipo da AquaFatec são marcas registradas da AquaFatec.com ou suas afiliadas.',
-              style: TextStyle(
-                fontSize: 16,
-                color: MyColors.color1,
-              ),
-            ),
-            const SizedBox(height: 16.0), // Espaço entre a descrição e os botões
             _buildProfileOption(
               text: 'Termos & Condições',
+
               icon: Icons.arrow_forward,
               onTap: () {
-                // Implemente a navegação para a tela de Termos & Condições aqui
                 Navigator.pushNamed(context, '/terms_and_conditions');
               },
             ),
-            const SizedBox(height: 16.0), // Espaço entre os botões
+            const SizedBox(height: 16.0),
             _buildProfileOption(
               text: 'Avisos de Terceiros',
               icon: Icons.arrow_forward,
               onTap: () {
-                // Implemente a navegação para a tela de Avisos de Terceiros aqui
                 Navigator.pushNamed(context, '/third_party_notices');
               },
             ),
@@ -68,7 +68,7 @@ class AboutScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavBar(
-        currentIndex: 3, // Defina o índice correto para esta tela
+        currentIndex: 3,
         onTap: (menu) {
           if (menu == 0) {
             Navigator.pushNamed(context, '/home');
@@ -112,6 +112,7 @@ class AboutScreen extends StatelessWidget {
               text,
               style: const TextStyle(
                 fontSize: 18,
+                color: MyColors.color3,
                 fontWeight: FontWeight.bold,
               ),
             ),
