@@ -7,6 +7,26 @@ import '../widgets/navibar.dart';
 import 'package:intl/intl.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:graphic/graphic.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Aquafatec',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: TemperatureScreen(),
+    );
+  }
+}
 
 class TemperatureScreen extends StatefulWidget {
   const TemperatureScreen({super.key});
@@ -19,22 +39,39 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
   MQTTClientManager mqttClientManager = MQTTClientManager();
   final String pubTopic = "aquafatec/tanque1/temperatura";
   String temperature = "0.0 ºC";
+  String lastReadingDate = "N/A";
   int nextRowNumber = 1;
   late final DatabaseReference databaseReference;
 
   @override
   void initState() {
+    super.initState();
     databaseReference = FirebaseDatabase.instance.ref().child("temperature");
     setupMqttClient();
     setupUpdatesListener();
-    super.initState();
+    fetchLastReading();
+  }
+
+  Future<void> fetchLastReading() async {
+    try {
+      DatabaseEvent event = await databaseReference.orderByChild('row_number').limitToLast(1).once();
+
+      if (event.snapshot.exists) {
+        Map<dynamic, dynamic> data = event.snapshot.value as Map<dynamic, dynamic>;
+        data.forEach((key, value) {
+          setState(() {
+            temperature = '${value['value']} ºC';
+            lastReadingDate = value['timestamp'];
+          });
+        });
+      }
+    } catch (e) {
+      print('Erro ao buscar a última leitura: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    String formattedDate = DateFormat('dd/MM/yyyy HH:mm:ss').format(
-        DateTime.now());
-
     return Scaffold(
       backgroundColor: MyColors.color4,
       appBar: CustomAppBar(
@@ -42,7 +79,7 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
         subtitle: 'Confira detalhes do seu dispositivo',
         showBackButton: true,
         onBackButtonPressed: () {
-            Navigator.pushNamed(context, '/home');
+          Navigator.pushNamed(context, '/home');
         },
       ),
       body: SingleChildScrollView(
@@ -57,11 +94,10 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
                 width: double.infinity,
                 height: 250,
                 alignment: Alignment.center,
-                )
+              ),
             ),
-
             const SizedBox(height: 10),
-            _buildInfoBox('Última leitura:', formattedDate, fontSize: 16),
+            _buildInfoBox('Última leitura:', lastReadingDate, fontSize: 16),
             _buildInfoBox('Valor da leitura:', temperature, fontSize: 16),
             _buildInfoBox('Status do sensor:', 'ATIVO', fontSize: 16),
           ],
@@ -118,7 +154,7 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
               fontWeight: FontWeight.bold,
               color: Colors.black,
             ),
-          ), // Cor do texto
+          ),
         ],
       ),
     );
@@ -130,27 +166,25 @@ class _TemperatureScreenState extends State<TemperatureScreen> {
   }
 
   void setupUpdatesListener() {
-    mqttClientManager
-        .getMessagesStream()!
-        .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+    mqttClientManager.getMessagesStream()!.listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
       final recMess = c![0].payload as MqttPublishMessage;
-      final pt = MqttPublishPayload.bytesToStringAsString(
-          recMess.payload.message);
+      final pt = MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
 
       setState(() {
         temperature = '$pt ºC';
         final parsedTimestamp = DateTime.now();
         final formatter = DateFormat('dd/MM/yyyy HH:mm:ss');
         final formattedTimestamp = formatter.format(parsedTimestamp);
+
         final rowRef = databaseReference.push();
         rowRef.set({
           "row_number": nextRowNumber++,
           "timestamp": formattedTimestamp,
           "value": pt
         });
-      });
 
-      //print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n ');
+        lastReadingDate = formattedTimestamp;
+      });
     });
   }
 }

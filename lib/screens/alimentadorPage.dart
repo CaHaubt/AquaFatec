@@ -1,11 +1,11 @@
 import 'package:aquafatec/screens/settings/mqtt_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:mqtt_client/mqtt_client.dart';
 import '../widgets/appbar.dart';
 import '../widgets/colors.dart';
 import '../widgets/navibar.dart';
 import '../widgets/feed_time_box.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class FeederPage extends StatefulWidget {
@@ -20,14 +20,20 @@ class _FeederPageState extends State<FeederPage> {
   final String pubTopic = "aquafatec/tanque1/alimentador";
   final String feedType = "Ração X";
   String feedAmount = "100g";
-  List<TimeOfDay> feedTimes = [TimeOfDay.now()];
-  late SharedPreferences prefs;
+  List<TimeOfDay> feedTimes = [];
+  late DatabaseReference databaseReference;
   bool isRemoving = false;
 
   @override
   void initState() {
     super.initState();
     setupMqttClient();
+    _initializeFirebase();
+  }
+
+  Future<void> _initializeFirebase() async {
+    await Firebase.initializeApp();
+    databaseReference = FirebaseDatabase.instance.ref().child("feederSettings");
     _loadFeedSettings();
   }
 
@@ -176,35 +182,50 @@ class _FeederPageState extends State<FeederPage> {
     );
   }
 
-  void _saveFeedSettings() async {
-    prefs = await SharedPreferences.getInstance();
+  Future<void> _saveFeedSettings() async {
     final feedTimesList = feedTimes.map((time) => '${time.hour}:${time.minute}').toList();
-    prefs.setStringList('feedTimes', feedTimesList);
-    prefs.setString('feedAmount', feedAmount);
-  }
-
-  void _loadFeedSettings() async {
-    prefs = await SharedPreferences.getInstance();
-    final savedFeedTimes = prefs.getStringList('feedTimes') ?? [];
-    final savedFeedAmount = prefs.getString('feedAmount') ?? "100g";
-    setState(() {
-      feedTimes = savedFeedTimes.map((timeStr) {
-        final timeParts = timeStr.split(':');
-        if (timeParts.length != 2) {
-          return const TimeOfDay(hour: 0, minute: 0);
-        }
-        final hour = int.parse(timeParts[0]);
-        final minute = int.parse(timeParts[1]);
-        return TimeOfDay(hour: hour, minute: minute);
-      }).toList();
-      feedAmount = savedFeedAmount;
+    await databaseReference.set({
+      'feedTimes': feedTimesList,
+      'feedAmount': feedAmount,
     });
   }
 
+  Future<void> _loadFeedSettings() async {
+    try {
+      DatabaseEvent event = await databaseReference.once();
+      if (event.snapshot.exists) {
+        final data = event.snapshot.value as Map<dynamic, dynamic>;
+        final savedFeedTimes = data['feedTimes'] as List<dynamic>;
+        final savedFeedAmount = data['feedAmount'] as String;
+        setState(() {
+          feedTimes = savedFeedTimes.map((timeStr) {
+            final timeParts = (timeStr as String).split(':');
+            if (timeParts.length != 2) {
+              return const TimeOfDay(hour: 0, minute: 0);
+            }
+            final hour = int.parse(timeParts[0]);
+            final minute = int.parse(timeParts[1]);
+            return TimeOfDay(hour: hour, minute: minute);
+          }).toList();
+          feedAmount = savedFeedAmount;
+        });
+      }
+    } catch (e) {
+      print('Erro ao carregar as configurações de alimentação: $e');
+    }
+  }
+
   void _onAddFeedTimePressed() {
-    setState(() {
-      feedTimes.add(TimeOfDay.now());
-      _saveFeedSettings();
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    ).then((selectedTime) {
+      if (selectedTime != null) {
+        setState(() {
+          feedTimes.add(selectedTime);
+          _saveFeedSettings();
+        });
+      }
     });
   }
 
